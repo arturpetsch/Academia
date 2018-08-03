@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="idPainelCadastrarCliente" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="1082.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="academia.Cliente.cadastrarClienteController">
+   <children>
+      <Label layoutX="43.0" layoutY="14.0" text="Cliente - Novo Cadastro" textFill="#380bee">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="48.0" layoutY="77.0" text="Status do Cliente" textFill="#08041e">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="statusAtivoCadastrarCliente" layoutX="43.0" layoutY="104.0" mnemonicParsing="false" onAction="#clicaAtivo" selected="true" text="Ativo" />
+      <RadioButton fx:id="statusInativoCadastrarCliente" layoutX="125.0" layoutY="104.0" mnemonicParsing="false" onAction="#clicaInativo" text="Inativo" />
+      <Label layoutX="431.0" layoutY="77.0" text="*CPF" textFill="#170202">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="CPFcadastrarCliente" layoutX="431.0" layoutY="100.0" prefHeight="25.0" prefWidth="170.0" promptText="___.___.___-__" />
+      <DatePicker fx:id="dataNascimentoCadastrarCliente" layoutX="637.0" layoutY="100.0" prefHeight="25.0" prefWidth="149.0" promptText="   /     / " />
+      <Pane layoutX="823.0" layoutY="41.0" prefHeight="126.0" prefWidth="209.0" style="-fx-border-width: 1,5; -fx-border-color: silver;">
+         <opaqueInsets>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </opaqueInsets>
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Mensalidade:" underline="true" />
+            <Label layoutX="14.0" layoutY="46.0" text="Dia Vencimento:" />
+            <Label layoutX="14.0" layoutY="82.0" text="Valor (R$):" />
+            <ComboBox fx:id="diaVencimentoCadastrarCliente" layoutX="113.0" layoutY="42.0" prefHeight="20.0" prefWidth="57.0" />
+            <TextField fx:id="valorMensalidadeCadastrarCliente" layoutX="86.0" layoutY="78.0" prefHeight="25.0" prefWidth="105.0" />
+         </children>
+      </Pane>
+      <TextField fx:id="nomeCadastrarCliente" layoutX="43.0" layoutY="184.0" prefHeight="25.0" prefWidth="482.0" promptText="Nome" />
+      <TextField fx:id="emailCadastrarCliente" layoutX="563.0" layoutY="184.0" prefHeight="25.0" prefWidth="482.0" promptText="E-mail" />
+      <TextField fx:id="telefoneCadastrarCliente" layoutX="43.0" layoutY="266.0" prefHeight="25.0" prefWidth="191.0" promptText="( ) _ ____ -____" />
+      <TextField fx:id="CEPcadastrarCliente" layoutX="284.0" layoutY="266.0" prefHeight="25.0" prefWidth="191.0" />
+      <TextField fx:id="observacaoCadastrarCliente" layoutX="525.0" layoutY="266.0" prefHeight="25.0" prefWidth="482.0" promptText="Observação" />
+      <TextField fx:id="enderecoCadastrarCliente" layoutX="43.0" layoutY="341.0" prefHeight="25.0" prefWidth="429.0" promptText="Endereço" />
+      <TextField fx:id="numeroCadastrarCliente" layoutX="525.0" layoutY="341.0" promptText="Número" />
+      <TextField fx:id="bairroCadastrarCliente" layoutX="730.0" layoutY="341.0" prefHeight="25.0" prefWidth="316.0" promptText="Bairro" />
+      <Label layoutX="43.0" layoutY="163.0" text="*Nome">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="563.0" layoutY="163.0" text="E-mail">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="43.0" layoutY="243.0" text="*Contato">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="525.0" layoutY="243.0" text="Observação">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="284.0" layoutY="243.0" text="*CEP">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="43.0" layoutY="318.0" text="*Endereço">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="525.0" layoutY="318.0" text="*Número">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="730.0" layoutY="318.0" text="*Bairro">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="ufCadastrarCliente" layoutX="44.0" layoutY="417.0" prefHeight="25.0" prefWidth="113.0" />
+      <TextField fx:id="cidadeCadastrarCliente" layoutX="180.0" layoutY="419.0" prefHeight="25.0" prefWidth="170.0" />
+      <ComboBox fx:id="horaTreinoCadastrarCliente" layoutX="380.0" layoutY="417.0" prefHeight="25.0" prefWidth="57.0" />
+      <ComboBox fx:id="minutoTreinoCadastrarCliente" layoutX="448.0" layoutY="417.0" prefHeight="25.0" prefWidth="57.0" />
+      <Label layoutX="43.0" layoutY="393.0" text="*UF">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="180.0" layoutY="395.0" text="*Município">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="botaoCancelarCadastrarCliente" layoutX="766.0" layoutY="435.0" mnemonicParsing="false" onAction="#cancelarCadastroCliente" prefHeight="36.0" prefWidth="112.0" style="-fx-background-color: #F13333;" text="Cancelar" textFill="#f8f7f7">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="botaoSalvarCadastrarCliente" layoutX="897.0" layoutY="431.0" mnemonicParsing="false" onAction="#salvarCadastroCliente" onKeyPressed="#AcaoBotaEnter" prefHeight="58.0" prefWidth="149.0" style="-fx-background-color: #4aa4ff;" text="Salvar" textFill="#f8f5f5" />
+      <Label layoutX="637.0" layoutY="77.0" text="*Data Nascimento">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="383.0" layoutY="393.0" text="*Horário Treino">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="sexoMascCadastrarCliente" layoutX="220.0" layoutY="104.0" mnemonicParsing="false" onAction="#clicaMasculino" selected="true" text="Masculino" />
+      <RadioButton fx:id="sexoFemCadastrarCliente" layoutX="314.0" layoutY="104.0" mnemonicParsing="false" onAction="#clicaFeminino" text="Feminino" />
+      <Label layoutX="219.0" layoutY="77.0" text="Sexo">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <CheckBox fx:id="segundaCadastrarCliente" layoutX="554.0" layoutY="420.0" mnemonicParsing="false" text="Segunda" />
+      <CheckBox fx:id="quartaCadastrarCliente" layoutX="554.0" layoutY="481.0" mnemonicParsing="false" text="Quarta" />
+      <CheckBox fx:id="tercaCadastrarCliente" layoutX="554.0" layoutY="452.0" mnemonicParsing="false" text="Terça" />
+      <CheckBox fx:id="quintaCadastrarCliente" layoutX="650.0" layoutY="420.0" mnemonicParsing="false" text="Quinta" />
+      <CheckBox fx:id="sextaCadastrarCliente" layoutX="650.0" layoutY="452.0" mnemonicParsing="false" text="Sexta" />
+      <CheckBox fx:id="sabadoCadastrarCliente" layoutX="650.0" layoutY="481.0" mnemonicParsing="false" text="Sábado" />
+      <Label layoutX="549.0" layoutY="395.0" text="Dias de Treino">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

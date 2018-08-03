@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="idPainelAlterarCliente" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="1082.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="academia.Cliente.FXMLalterarCliente">
+   <children>
+      <Label layoutX="43.0" layoutY="14.0" text="Cliente - Alterar Cadastro" textFill="#380bee">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="77.0" text="Status do Cliente" textFill="#08041e">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="statusAtivoAlterarCliente" layoutX="43.0" layoutY="104.0" mnemonicParsing="false" onAction="#clicaAtivo" selected="true" text="Ativo" />
+      <RadioButton fx:id="statusInativoAlterarCliente" layoutX="119.0" layoutY="104.0" mnemonicParsing="false" onAction="#clicaInativo" text="Inativo" />
+      <Label layoutX="432.0" layoutY="77.0" text="*CPF" textFill="#170202">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="CPFalterarCliente" layoutX="432.0" layoutY="100.0" prefHeight="25.0" prefWidth="170.0" promptText="___.___.___-__" />
+      <DatePicker fx:id="dataNascimentoAlterarCliente" layoutX="631.0" layoutY="100.0" prefHeight="25.0" prefWidth="149.0" promptText="   /      /" />
+      <Pane layoutX="811.0" layoutY="41.0" prefHeight="126.0" prefWidth="209.0" style="-fx-border-color: silver; -fx-border-width: 1,5;">
+         <opaqueInsets>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </opaqueInsets>
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Mensalidade:" underline="true" />
+            <Label layoutX="14.0" layoutY="46.0" text="Dia Vencimento:" />
+            <Label layoutX="14.0" layoutY="78.0" text="Valor (R$):" />
+            <ComboBox fx:id="diaVencimentoAlterarCliente" layoutX="111.0" layoutY="40.0" prefHeight="20.0" prefWidth="57.0" />
+            <TextField fx:id="valorMensalidadeAlterarCliente" layoutX="84.0" layoutY="76.0" prefHeight="25.0" prefWidth="105.0" />
+         </children>
+      </Pane>
+      <TextField fx:id="nomeAlterarCliente" focusTraversable="false" layoutX="43.0" layoutY="184.0" prefHeight="25.0" prefWidth="482.0" promptText="Nome" />
+      <TextField fx:id="emailAlterarCliente" layoutX="563.0" layoutY="184.0" prefHeight="25.0" prefWidth="482.0" promptText="E-mail" />
+      <TextField fx:id="telefoneAlterarCliente" layoutX="43.0" layoutY="266.0" prefHeight="25.0" prefWidth="191.0" promptText="( ) _ ____ -____" />
+      <TextField fx:id="CEPAlterarCliente" layoutX="292.0" layoutY="266.0" prefHeight="25.0" prefWidth="191.0" />
+      <TextField fx:id="observacaoAlterarCliente" layoutX="541.0" layoutY="266.0" prefHeight="25.0" prefWidth="482.0" promptText="Observação" />
+      <TextField fx:id="enderecoAlterarCliente" layoutX="43.0" layoutY="341.0" prefHeight="25.0" prefWidth="429.0" promptText="Endereço" />
+      <TextField fx:id="numeroAlterarCliente" layoutX="525.0" layoutY="341.0" promptText="Número" />
+      <TextField fx:id="bairroAlterarCliente" layoutX="730.0" layoutY="341.0" prefHeight="25.0" prefWidth="316.0" promptText="Bairro" />
+      <Label layoutX="43.0" layoutY="163.0" text="*Nome">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="563.0" layoutY="163.0" text="E-mail">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="43.0" layoutY="243.0" text="*Contato">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="541.0" layoutY="243.0" text="Observação">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="292.0" layoutY="243.0" text="*CEP">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="43.0" layoutY="318.0" text="*Endereço">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="525.0" layoutY="318.0" text="Número">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="730.0" layoutY="318.0" text="*Bairro">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="ufAlterarCliente" layoutX="44.0" layoutY="417.0" prefHeight="25.0" prefWidth="113.0" />
+      <TextField fx:id="cidadeAlterarCliente" layoutX="176.0" layoutY="417.0" prefHeight="25.0" prefWidth="170.0" />
+      <Label layoutX="43.0" layoutY="393.0" text="*UF">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="176.0" layoutY="393.0" text="*Município">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="horaTreinoAlterarCliente" layoutX="385.0" layoutY="416.0" prefHeight="25.0" prefWidth="57.0" />
+      <ComboBox fx:id="minutoTreinoAlterarCliente" layoutX="453.0" layoutY="416.0" prefHeight="25.0" prefWidth="57.0" />
+      <Button fx:id="botaoCancelarAlterarCliente" layoutX="748.0" layoutY="431.0" mnemonicParsing="false" onAction="#cancelarAlteracaoCliente" onKeyPressed="#AcaoBotaoCancelar" prefHeight="36.0" prefWidth="112.0" style="-fx-background-color: #F13333;" text="Cancelar" textFill="#f8f7f7">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="botaoSalvarAlterarCliente" layoutX="897.0" layoutY="430.0" mnemonicParsing="false" onAction="#alterarCadastroCliente" onKeyPressed="#AcaoBotaEnter" prefHeight="58.0" prefWidth="149.0" style="-fx-background-color: #4aa4ff;" text="Salvar" textFill="#f8f5f5" />
+      <Label layoutX="631.0" layoutY="77.0" text="*Data Nascimento">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="385.0" layoutY="393.0" text="*Horário Treino">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="233.0" layoutY="77.0" text="Sexo">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="sexoMascAlterarCliente" layoutX="233.0" layoutY="104.0" mnemonicParsing="false" onAction="#clicaMasculino" selected="true" text="Masculino" />
+      <RadioButton fx:id="sexoFemAlterarCliente" layoutX="322.0" layoutY="104.0" mnemonicParsing="false" onAction="#clicaFeminino" text="Feminino" />
+      <CheckBox fx:id="segundaAlterarCliente" layoutX="549.0" layoutY="416.0" mnemonicParsing="false" text="Segunda" />
+      <CheckBox fx:id="quartaAlterarCliente" layoutX="549.0" layoutY="477.0" mnemonicParsing="false" text="Quarta" />
+      <CheckBox fx:id="tercaAlterarCliente" layoutX="549.0" layoutY="448.0" mnemonicParsing="false" text="Terça" />
+      <CheckBox fx:id="quintaAlterarCliente" layoutX="645.0" layoutY="416.0" mnemonicParsing="false" text="Quinta" />
+      <CheckBox fx:id="sextaAlterarCliente" layoutX="645.0" layoutY="448.0" mnemonicParsing="false" text="Sexta" />
+      <CheckBox fx:id="sabadoAlterarCliente" layoutX="645.0" layoutY="477.0" mnemonicParsing="false" text="Sábado" />
+      <Label layoutX="544.0" layoutY="391.0" text="Dias de Treino">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

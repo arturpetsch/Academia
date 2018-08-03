@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="recibo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3445bcd1-77b7-41c5-9d6e-dc7c846006fe">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="valorFinal" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[{logo}]]>
+	</queryString>
+	<field name="cliente.nome" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="103" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="280" height="80" uuid="3b69fa4e-9f69-468d-99ca-f189da4a98fe"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="200" y="12" width="180" height="30" uuid="4ec9033f-3c32-455a-a46f-010acaa8f161"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECIBO DE PAGAMENTO]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="120" height="20" uuid="7e834d68-ce40-4e0d-9a50-6a5c1cfc32c2"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[RECEBI(EMOS) DE ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="110" height="20" uuid="f2a16952-e589-40d8-b3a9-8db65fd0d59a"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[A QUANTIA DE R$]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="30" width="20" height="19" uuid="98683a57-85b7-4eba-9a7b-9c04c4f2f77b"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[0
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="120" y="10" width="360" height="20" uuid="69ab3e2a-4955-4270-8af6-d545dc212016"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente.nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="50" width="360" height="20" uuid="ef5f73f5-e02a-42ff-9b8c-b5d483ce8b6e"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[REFERENTE A MENSALIDADE DO MÊS: ____/____]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="30" width="40" height="20" uuid="c782102d-5970-402b-9d23-0e511ac26d48"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{valorFinal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="154" splitType="Stretch">
+			<staticText>
+				<reportElement x="70" y="110" width="397" height="44" uuid="ececa396-3b48-4f33-902e-114cf402b689"/>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[________________________________________________				Studio D]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="370" y="40" width="175" height="30" uuid="3e1afe11-c5da-4978-801c-c81229705db2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="532.0" prefWidth="1082.0" style="-fx-background-color: #FFFFE;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="academia.Financeiro.FXMLmovimentacaoFinanceira">
+   <children>
+      <Label layoutX="24.0" layoutY="14.0" text="Movimentação Financeira" textFill="#380bee">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Pane layoutX="747.0" layoutY="40.0" prefHeight="62.0" prefWidth="321.0" style="-fx-background-color: #EEEEED; -fx-border-radius: 2; -fx-border-width: 1; -fx-border-color: black;" visible="false">
+         <children>
+            <Label layoutX="25.0" layoutY="14.0" text="Saldo :" textFill="#18b93b">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelSaldo" layoutX="135.0" layoutY="10.0" text="R$ 0,00" textFill="#18b93b">
+               <font>
+                  <Font name="System Bold" size="29.0" />
+               </font>
+            </Label>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <Pane layoutX="24.0" layoutY="40.0" prefHeight="62.0" prefWidth="438.0" style="-fx-border-width: 1; -fx-border-radius: 5; -fx-border-color: ;">
+         <children>
+            <ComboBox fx:id="mesMovFinan" layoutX="42.0" layoutY="10.0" onAction="#acaoDoSpinnerMes" prefHeight="44.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5; -fx-font-size: 14;" />
+            <ComboBox fx:id="anoMovFinan" layoutX="254.0" layoutY="9.0" onAction="#acaoDoSpinnerAno" prefHeight="44.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5; -fx-font-size: 14;" />
+         </children>
+      </Pane>
+      <TableView fx:id="tabelaContaReceber" layoutX="25.0" layoutY="139.0" prefHeight="138.0" prefWidth="1041.0" style="-fx-border-color: ; -fx-border-radius: 5;">
+        <columns>
+          <TableColumn fx:id="idTabelaCR" prefWidth="55.0" resizable="false" text="Código" />
+          <TableColumn fx:id="descricaoTabelaCR" prefWidth="186.0" resizable="false" text="Descrição" />
+            <TableColumn fx:id="clienteTabelaCR" prefWidth="169.0" resizable="false" text="Cliente" />
+            <TableColumn fx:id="dataVencimentoTabelaCR" prefWidth="143.0" resizable="false" text="Data Vencimento" />
+            <TableColumn fx:id="dataPagamentoTabelaCR" prefWidth="128.0" resizable="false" text="Data Pagamento" />
+            <TableColumn fx:id="usuarioTabelaCR" prefWidth="144.0" resizable="false" text="Usuário que lançou" />
+            <TableColumn fx:id="tipoContaTabelaCR" prefWidth="102.0" resizable="false" text="Entrada / Saída" />
+            <TableColumn fx:id="valorTabelaCR" prefWidth="114.0" resizable="false" text="Valor" />
+        </columns>
+      </TableView>
+      <Pane layoutX="25.0" layoutY="474.0" prefHeight="44.0" prefWidth="1041.0" style="-fx-border-radius: 5; -fx-background-color: white;">
+         <children>
+            <Label layoutX="67.0" layoutY="14.0" text="Entrada :" textFill="#04ab3c">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="365.0" layoutY="14.0" text="Saída :" textFill="#e40303">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="647.0" layoutY="14.0" text="Total :" textFill="#0d0d0d">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="valorTotalEntradaMovFinan" editable="false" layoutX="127.0" layoutY="10.0" style="-fx-text-fill: green;">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font></TextField>
+            <TextField fx:id="valorTotalSaidaMovFinan" editable="false" layoutX="411.0" layoutY="10.0" style="-fx-text-fill: red;">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font></TextField>
+            <TextField fx:id="valorTotalMovFinan" editable="false" layoutX="690.0" layoutY="10.0">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font></TextField>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <TableView fx:id="tabelaMovFinan" layoutX="25.0" layoutY="317.0" prefHeight="138.0" prefWidth="1041.0" style="-fx-border-color: ; -fx-border-radius: 5;">
+         <columns>
+            <TableColumn fx:id="idMovFinan" prefWidth="55.0" resizable="false" text="Código" />
+            <TableColumn fx:id="descricaoMovFinan" prefWidth="186.0" resizable="false" text="Descrição" />
+            <TableColumn fx:id="clienteMovFinan" prefWidth="169.0" resizable="false" text="Fornecedor" />
+            <TableColumn fx:id="dataVencimentoMovFinan" prefWidth="143.0" resizable="false" text="Data Vencimento" />
+            <TableColumn fx:id="dataPagamentoMovFinan" prefWidth="128.0" resizable="false" text="Data Pagamento" />
+            <TableColumn fx:id="usuarioMovFinan" prefWidth="144.0" resizable="false" text="Usuário que lançou" />
+            <TableColumn fx:id="tipoContaMovFinanTabela" prefWidth="102.0" resizable="false" text="Entrada / Saída" />
+            <TableColumn fx:id="valorTabelaMovFinan" prefWidth="111.0" resizable="false" text="Valor" />
+         </columns>
+      </TableView>
+      <Label fx:id="labelValoresRecebidos" layoutX="25.0" layoutY="115.0" text="Valores a Receber" textFill="#03bc16">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelValoresPagos" layoutX="25.0" layoutY="292.0" text="Valores a Pagar" textFill="#e80606">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

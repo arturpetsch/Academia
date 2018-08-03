@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="idPanelCliente" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="532.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="academia.Financeiro.FXMLfinanceiro">
+   <children>
+      <SplitPane dividerPositions="0.13210702341137123" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="1200.0">
+         <items>
+            <AnchorPane fx:id="idPainelEsquerdoCliente" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="118.0" style="-fx-background-color: #001235;">
+               <children>
+                  <Button fx:id="botaoEntradaFinanceiro" alignment="CENTER" layoutX="1.0" layoutY="14.0" mnemonicParsing="false" onAction="#mostrarOpcaoContaReceber" onMouseEntered="#alterarCorDoBotaoCR" prefHeight="42.0" prefWidth="118.0" style="-fx-background-color: #001235;" text="Contas Receber" textFill="#f8f7f7" />
+                  <Separator layoutX="12.0" layoutY="69.0" prefHeight="3.0" prefWidth="96.0" />
+                  <Separator layoutX="12.0" layoutY="139.0" prefHeight="3.0" prefWidth="96.0" />
+                  <Button fx:id="botaoSaidaFinanceiro" layoutX="-1.0" layoutY="83.0" mnemonicParsing="false" onAction="#mostrarOpcaoContaPagar" onMouseEntered="#alterarCorDoBotaoFinanceiro" prefHeight="42.0" prefWidth="120.0" style="-fx-background-color: #001235;" text="Contas a Pagar" textFill="#fcf8f8" />
+                  <Button fx:id="botaoMovFinan" layoutY="158.0" mnemonicParsing="false" onAction="#mostrarOpcaoMovimentacaoFinanceira" onMouseEntered="#alterarCorDoBotaoMovFinan" prefHeight="42.0" prefWidth="120.0" style="-fx-background-color: #001235;" text="Mov. Financeira" textAlignment="JUSTIFY" textFill="#f8f6f6" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="idPainelDireitoFinanceiro" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

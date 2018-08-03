@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="532.0" prefWidth="1082.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="academia.Usuario.FXMLalterarSenhaController">
+   <children>
+      <Label layoutX="79.0" layoutY="24.0" text="Alterar Senha - Usuário" textFill="#069bf2">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Pane layoutX="79.0" layoutY="93.0" prefHeight="353.0" prefWidth="695.0" style="-fx-border-color: gray;">
+         <children>
+            <PasswordField fx:id="respostaAlterar" layoutX="175.0" layoutY="52.0" prefHeight="25.0" prefWidth="291.0" />
+            <PasswordField fx:id="novaSenhaAlterar" layoutX="175.0" layoutY="113.0" prefHeight="25.0" prefWidth="291.0" />
+            <PasswordField fx:id="confirmarNovaSenha" layoutX="175.0" layoutY="176.0" prefHeight="25.0" prefWidth="291.0" />
+            <Label layoutX="76.0" layoutY="56.0" text="Respota Secreta:" textAlignment="RIGHT" />
+            <Label layoutX="98.0" layoutY="117.0" text="Nova Senha:" textAlignment="RIGHT" />
+            <Label layoutX="37.0" layoutY="180.0" text="Confirmar Nova Senha:" textAlignment="RIGHT" />
+            <Button fx:id="botaoSalvarAlteracao" layoutX="458.0" layoutY="264.0" mnemonicParsing="false" onAction="#alterarSenha" prefHeight="50.0" prefWidth="161.0" style="-fx-background-color: #4aa4ff;" text="Salvar" textFill="#fcf6f6" />
+            <Button fx:id="botaoCancelarAlteracao" layoutX="255.0" layoutY="264.0" mnemonicParsing="false" onAction="#cancelarAlteracao" prefHeight="50.0" prefWidth="161.0" style="-fx-background-color: #F13333;" text="Cancelar" textFill="#fcfafa" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
