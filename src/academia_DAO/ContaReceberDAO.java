@@ -50,7 +50,7 @@ public class ContaReceberDAO {
        
         int idUser = pegarIdUsuario();
         try {
-            if(!validarContaReceber(contaReceber.getDataVencimento(), contaReceber.getCliente().getId())){
+            if(!validarContaReceberNoMesEAno(contaReceber.getDataVencimento(), contaReceber.getCliente().getId())){
                 connection = Conexao.conexao();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setInt(1, contaReceber.getCliente().getId());
@@ -154,6 +154,28 @@ public class ContaReceberDAO {
             
             if(resultSet.next()){
                 return false;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return true;
+    }
+    
+    /**
+     * Método que valida se não existe outra mensalidade daquele cliente no mesmo mês.
+     */
+    public boolean validarContaReceberNoMesEAno(LocalDate data, int idCliente){
+        String sql = "SELECT * FROM contas_receber WHERE MONTH(data_vencimento) = " + data.getMonthValue() + " AND YEAR(data_vencimento) =" + 
+                data.getYear() + " AND id_cliente_conta_receber = " + idCliente;
+     
+        ResultSet resultSet;
+        try{
+            connection = Conexao.conexao();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery(sql);
+            
+            if(resultSet.next()){
+                return true;
             }
         }catch(Exception e){
             e.printStackTrace();

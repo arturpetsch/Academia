@@ -84,7 +84,7 @@ public class FXMLcontaPagar implements Initializable {
     private TableColumn<ContaPagar, String> parcelaTabelaContasPagar;
 
     @FXML
-    private TableColumn<ContaPagar, Double> valorParcelaTabelaContasPagar;
+    private TableColumn<ContaPagar, String> valorParcelaTabelaContasPagar;
 
     @FXML
     private TableColumn<ContaPagar, LocalDate> dataVencimentoTabelaContasPagar;
@@ -342,7 +342,7 @@ public class FXMLcontaPagar implements Initializable {
             //Double valor = converterValorParaDecimal(valorContaPagar.getText());
            
             
-            Double valor = Double.parseDouble(valorContaPagar.getText().replace(',', '.'));
+            String valor = (valorContaPagar.getText().replace(',', '.'));
             
             int parcela = (int) parcelaContaPagar.getValue();
             LocalDate dataVencimento = dataVencimentoContaPagar.getValue();
@@ -484,18 +484,18 @@ public class FXMLcontaPagar implements Initializable {
 
     private void formatarValor() {
         valorParcelaTabelaContasPagar.setCellFactory(column -> {
-            return new TableCell<ContaPagar, Double>() {
+            return new TableCell<ContaPagar, String>() {
 
                 @Override
-                protected void updateItem(Double item, boolean empty) {
+                protected void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
                     if (item == null) {
 
                     } else {
                          DecimalFormat formato = new DecimalFormat("0.##");
                          
-                         item = Double.valueOf(formato.format(item));
-                        setText("R$ " + item.toString().replace('.', ','));
+                         
+                        setText("R$ " + item.replace('.', ','));
                         
                     }
                 }

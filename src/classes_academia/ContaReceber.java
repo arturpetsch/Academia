@@ -26,7 +26,7 @@ public class ContaReceber {
     private Venda venda;
     private Mensalidade mensalidade;
     
-    public ContaReceber(int id, Cliente cliente, double valor, LocalDate dataVencimento, LocalDate dataBaixa,
+    public ContaReceber(int id, Cliente cliente, Double valor, LocalDate dataVencimento, LocalDate dataBaixa,
               boolean tipoConta, Usuario usuario, String descricao, Venda venda){
         this.id = id;
         this.cliente = cliente;
@@ -39,7 +39,7 @@ public class ContaReceber {
         this.venda = venda;
     }
     
-    public ContaReceber(Cliente cliente, double valor, LocalDate dataVencimento, LocalDate dataBaixa,
+    public ContaReceber(Cliente cliente, Double valor, LocalDate dataVencimento, LocalDate dataBaixa,
               boolean tipoConta, Usuario usuario, String descricao, Venda venda){
         this.cliente = cliente;
         this.valor = new SimpleDoubleProperty(valor);
@@ -51,7 +51,7 @@ public class ContaReceber {
         this.venda = venda;
     }
     
-    public ContaReceber(int id, Cliente cliente, double valor, LocalDate dataVencimento, LocalDate dataBaixa,
+    public ContaReceber(int id, Cliente cliente, Double valor, LocalDate dataVencimento, LocalDate dataBaixa,
               boolean tipoConta, Usuario usuario, String descricao, Mensalidade mensalidade){
               this.id = id;
         this.cliente = cliente;
@@ -65,7 +65,7 @@ public class ContaReceber {
     }
 
     
-    public ContaReceber(Cliente cliente, double valor, LocalDate dataVencimento, LocalDate dataBaixa,
+    public ContaReceber(Cliente cliente, Double valor, LocalDate dataVencimento, LocalDate dataBaixa,
               boolean tipoConta, Usuario usuario, String descricao, Mensalidade mensalidade){
               
         this.cliente = cliente;
@@ -101,11 +101,11 @@ public class ContaReceber {
         this.cliente = cliente;
     }
 
-    public double getValor() {
+    public Double getValor() {
         return valor.get();
     }
 
-    public void setValor(double valor) {
+    public void setValor(Double valor) {
         this.valor.set(valor);
     }
 

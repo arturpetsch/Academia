@@ -84,6 +84,15 @@ public class PrincipalController implements Initializable {
     TreeItem<String> quadroHorarios = new TreeItem<String>("Horários");
     private Scene scene;
 
+    @FXML
+    private Label labelTotal;
+    
+    @FXML
+    private Label labelInativos;
+    
+    @FXML
+    private Label labelAtivos;
+    
     /**
      * Initializes the controller class.
      */
@@ -95,6 +104,7 @@ public class PrincipalController implements Initializable {
         labelUsuarioLogado.setText("Olá, " + parametroUsuario.getUsuario().getNome());
 
         preencherQuadroHorarios();
+        buscarQuantidadeAlunos();
     }
 
     public void iniciar() throws IOException {
@@ -301,5 +311,34 @@ public class PrincipalController implements Initializable {
         stage.centerOnScreen();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+    }
+    
+    @FXML
+    protected void buscarQuantidadeAlunos(){
+        ClienteDAO clienteDAO = new ClienteDAO();
+        List<Cliente> clientes = new ArrayList();
+        int ativos = 0;
+        int inativos = 0;
+        
+        clientes = clienteDAO.buscarTodosClientes();
+        
+        if(!clientes.isEmpty()){
+            for (Cliente cliente : clientes){
+                if(cliente.getStatus()){
+                    ativos ++;
+                }else{
+                    inativos ++;
+                }
+            }
+            
+            labelAtivos.setText(""+ativos);
+            labelInativos.setText(""+inativos);
+            labelTotal.setText(""+clientes.size());
+        }else{
+            
+            labelAtivos.setText("0");
+            labelInativos.setText("0");
+            labelTotal.setText("0");
+        }
     }
 }

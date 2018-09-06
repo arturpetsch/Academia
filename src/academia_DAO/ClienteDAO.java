@@ -380,37 +380,48 @@ public class ClienteDAO {
         return clientes;
     }
 
-//    public ArrayList<QuadroHorario> getAlunosPorHoraDiaTreino(String dia) throws ClassNotFoundException {
-//        int hora = 00;
-//        int minuto = 45;
-//        ResultSet resultSet;
-//        ArrayList<QuadroHorario> quadroHorarios = new ArrayList<QuadroHorario>();
-//        
-//        for (hora = 23; hora >= 00; hora--) {
-//            minuto = 45;
-//            while (minuto >= 0) {
-//                String sql = "SELECT count('" + hora + ":" + minuto + "') from Cliente where " + dia + " = 1 AND horaTreino = '" + hora + ":" + minuto + "' ";
-//                System.err.println(sql);
-//                try {
-//                    
-//                    connection = Conexao.conexao();
-//                    PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//                    resultSet = preparedStatement.executeQuery(sql);
-//                    if(resultSet.getRow() > 0){
-//                        
-//                        QuadroHorario qHora = new QuadroHorario();
-//                        String horaFinal = String.valueOf(hora) + ":" + String.valueOf(minuto);
-//                        qHora.setHora(horaFinal);
-//                        qHora.setQtdePessoasPorHora(resultSet.getRow());
-//                        quadroHorarios.add(qHora);
-//                    }
-//                }catch(SQLException e){
-//                    e.printStackTrace();
-//                }
-//                minuto = minuto - 15;
-//                System.err.println("hora : " + hora);
-//            }
-//        }
-//        return quadroHorarios;
-//    }
+    public List<Cliente> buscarTodosClientes() {
+       
+        String sql = "SELECT * FROM Cliente";
+        ResultSet resultSet;
+        List<Cliente> clientes = new ArrayList();
+        try {
+
+            connection = Conexao.conexao();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery(sql);
+            while (resultSet.next()) {
+                int id = (resultSet.getInt("idCliente"));
+                String nome = (resultSet.getString("nome"));
+                String cpf = (resultSet.getString("cpf"));
+                boolean status = (resultSet.getBoolean("status"));
+                String contato = (resultSet.getString("telefone"));
+                String endereco = (resultSet.getString("endereco"));
+                String bairro = (resultSet.getString("bairro"));
+                String CEP = (resultSet.getString("cep"));
+                String observacao = (resultSet.getString("observacao"));
+                String email = (resultSet.getString("email"));
+                String estado = (resultSet.getString("estado"));
+                String numero = (String.valueOf(resultSet.getInt("numero")));
+                String cidade = (resultSet.getString("cidade"));
+                LocalDate dataCadastro = (resultSet.getDate("dataCadastro").toLocalDate());
+                LocalDate dataNascimento = (resultSet.getDate("dataNascimento").toLocalDate());
+                String horaTreino = (resultSet.getString("horaTreino"));
+                Boolean sexo = (resultSet.getBoolean("sexo"));
+                boolean segunda = (resultSet.getBoolean("segunda"));
+                boolean terca = (resultSet.getBoolean("terca"));
+                boolean quarta = (resultSet.getBoolean("quarta"));
+                boolean quinta = (resultSet.getBoolean("quinta"));
+                boolean sexta = (resultSet.getBoolean("sexta"));
+                boolean sabado = (resultSet.getBoolean("sabado"));
+                Cliente cliente = new Cliente(nome, cpf, contato, observacao, endereco, bairro, cidade, estado,
+                        status, email, CEP, numero, id, dataCadastro, dataNascimento, horaTreino, sexo, segunda, terca, quarta, quinta,
+                        sexta, sabado);
+                clientes.add(cliente);
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return clientes;
+    }
 }

@@ -18,7 +18,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class ContaPagar {
     
     private int idContaPagar;
-    private SimpleDoubleProperty valor;
+    private SimpleStringProperty valor;
     private SimpleStringProperty descricao;
     private LocalDate dataVencimento;
     private LocalDate dataPagamento;
@@ -27,10 +27,10 @@ public class ContaPagar {
     private SimpleBooleanProperty tipoConta;
     private Usuario usuario;
 
-    public ContaPagar(int idContaPagar, double valor, String descricao, LocalDate dataVencimento, LocalDate dataPagamento, 
+    public ContaPagar(int idContaPagar, String valor, String descricao, LocalDate dataVencimento, LocalDate dataPagamento, 
             int parcela, String fornecedor, boolean tipoConta, Usuario usuario) {
         this.idContaPagar = idContaPagar;
-        this.valor = new SimpleDoubleProperty(valor);
+        this.valor = new SimpleStringProperty(valor);
         this.descricao = new SimpleStringProperty(descricao);
         this.dataVencimento = dataVencimento;
         this.dataPagamento = dataPagamento;
@@ -40,10 +40,10 @@ public class ContaPagar {
         this.usuario = usuario;
     }
 
-     public ContaPagar(int idContaPagar, double valor, String descricao, LocalDate dataVencimento, LocalDate dataPagamento, 
+     public ContaPagar(int idContaPagar, String valor, String descricao, LocalDate dataVencimento, LocalDate dataPagamento, 
             int parcela, String fornecedor, boolean tipoConta) {
         this.idContaPagar = idContaPagar;
-        this.valor = new SimpleDoubleProperty(valor);
+        this.valor = new SimpleStringProperty(valor);
         this.descricao = new SimpleStringProperty(descricao);
         this.dataVencimento = dataVencimento;
         this.dataPagamento = dataPagamento;
@@ -52,9 +52,9 @@ public class ContaPagar {
         this.tipoConta = new SimpleBooleanProperty(tipoConta);
     }
      
-    public ContaPagar(double valor, String descricao, LocalDate dataVencimento, LocalDate dataPagamento, int parcela, 
+    public ContaPagar(String valor, String descricao, LocalDate dataVencimento, LocalDate dataPagamento, int parcela, 
             String fornecedor, boolean tipoConta, Usuario usuario) {
-        this.valor = new SimpleDoubleProperty(valor);
+        this.valor = new SimpleStringProperty(valor);
         this.descricao = new SimpleStringProperty(descricao);
         this.dataVencimento = dataVencimento;
         this.dataPagamento = dataPagamento;
@@ -64,9 +64,9 @@ public class ContaPagar {
         this.usuario = usuario;
     }
 
-    public ContaPagar(double valor, String descricao, LocalDate dataVencimento, LocalDate dataPagamento, int parcela, 
+    public ContaPagar(String valor, String descricao, LocalDate dataVencimento, LocalDate dataPagamento, int parcela, 
             String fornecedor, boolean tipoConta) {
-        this.valor = new SimpleDoubleProperty(valor);
+        this.valor = new SimpleStringProperty(valor);
         this.descricao = new SimpleStringProperty(descricao);
         this.dataVencimento = dataVencimento;
         this.dataPagamento = dataPagamento;
@@ -79,7 +79,7 @@ public class ContaPagar {
         this.descricao = new SimpleStringProperty();
          this.fornecedor = new SimpleStringProperty();
         this.tipoConta = new SimpleBooleanProperty();
-        this.valor = new SimpleDoubleProperty();
+        this.valor = new SimpleStringProperty();
     }
     
     public int getIdContaPagar() {
@@ -90,11 +90,11 @@ public class ContaPagar {
         this.idContaPagar = idContaPagar;
     }
 
-    public double getValor() {
+    public String getValor() {
         return valor.get();
     }
 
-    public void setValor(double valor) {
+    public void setValor(String valor) {
         this.valor.set(valor);
     }
 

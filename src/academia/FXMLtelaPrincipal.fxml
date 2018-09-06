@@ -61,6 +61,36 @@
                                     </Label>
                                  </children>
                               </AnchorPane>
+                              <Label layoutX="64.0" layoutY="381.0" text="Total de Alunos :">
+                                 <font>
+                                    <Font name="Source Sans Pro Semibold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="120.0" layoutY="414.0" text="Ativos :">
+                                 <font>
+                                    <Font name="Source Sans Pro Semibold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="108.0" layoutY="446.0" text="Inativos :">
+                                 <font>
+                                    <Font name="Source Sans Pro Semibold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="labelTotal" layoutX="171.0" layoutY="381.0" prefHeight="19.0" prefWidth="44.0">
+                                 <font>
+                                    <Font name="Source Sans Pro Semibold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="labelAtivos" layoutX="171.0" layoutY="414.0" prefHeight="19.0" prefWidth="44.0">
+                                 <font>
+                                    <Font name="Source Sans Pro Semibold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="labelInativos" layoutX="171.0" layoutY="446.0" prefHeight="19.0" prefWidth="44.0">
+                                 <font>
+                                    <Font name="Source Sans Pro Semibold" size="14.0" />
+                                 </font>
+                              </Label>
                            </children></AnchorPane>
                     </items>
                   </SplitPane>

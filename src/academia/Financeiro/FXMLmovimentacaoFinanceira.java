@@ -10,12 +10,16 @@ import classes_academia.Cliente;
 import classes_academia.ContaPagar;
 import classes_academia.ContaReceber;
 import classes_academia.Usuario;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -71,7 +75,7 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
     private TableColumn<ContaPagar, Boolean> tipoContaMovFinanTabela;
 
     @FXML
-    private TableColumn<ContaPagar, Double> valorTabelaMovFinan;
+    private TableColumn<ContaPagar, String> valorTabelaMovFinan;
 
     @FXML
     private TableColumn<ContaPagar, LocalDate> dataVencimentoMovFinan;
@@ -118,6 +122,9 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
     final ObservableList<ContaReceber> contaBusca = FXCollections.observableArrayList();
     final ObservableList<ContaPagar> contaPagarBusca = FXCollections.observableArrayList();
 
+    double valor = 0;
+    double valorSaida = 0;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -229,14 +236,14 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
     protected void acaoDoSpinnerMes() {
         buscarContasPagar();
         buscarContasReceber();
-
+        atualizarValorTT();
     }
 
     @FXML
     protected void acaoDoSpinnerAno() {
         buscarContasPagar();
         buscarContasReceber();
-
+        atualizarValorTT();
     }
 
     @FXML
@@ -464,19 +471,18 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
 
     private void formatarValor() {
         valorTabelaMovFinan.setCellFactory(column -> {
-            return new TableCell<ContaPagar, Double>() {
+            return new TableCell<ContaPagar, String>() {
 
                 @Override
-                protected void updateItem(Double item, boolean empty) {
+                protected void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
                     if (item == null) {
 
                     } else {
                         DecimalFormat formato = new DecimalFormat("0.##");
                          
-                         item = Double.valueOf(formato.format(item));
-                        setText("R$ " + item.toString().replace('.', ','));
-                        //setText("R$ " + item.toString().replace('.', ',') + "0");
+                         
+                        setText("R$ " + item.replace('.', ','));
                     }
                 }
             };
@@ -505,52 +511,52 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
     @FXML
     protected void inserirValoresNosCampos(List<ContaReceber> contasReceber) {
         int i = 0;
-        double valor = 0;
         
         if (contasReceber != null) {
             while (contasReceber.size() > i) {
-                valor = valor + contasReceber.get(i).getValor();
+                valor = valor + (contasReceber.get(i).getValor());
                 i++;
             }
         }
         
         DecimalFormat formato = new DecimalFormat("#.##");
         valor= Double.valueOf(formato.format(valor));
-        valorTotalEntradaMovFinan.setText(("R$" + valor).replace('.', ','));
-        atualizarValorTotal(valor, true);
+        valorTotalEntradaMovFinan.setText(("R$" + valor).replace('.', ',') + "0");
+        //atualizarValorTotal(valor, true);
     }
 
     @FXML
     protected void inserirValorNoCampoSaida(List<ContaPagar> contasPagar) {
         int i = 0;
-        double valorSaida = 0;
         
         if (contasPagar != null) {
             while (contasPagar.size() > i) {
-                valorSaida = valorSaida + contasPagar.get(i).getValor();
+                
+                valorSaida = valorSaida + Double.parseDouble(contasPagar.get(i).getValor());
                 i++;
             }
         }
         
-       DecimalFormat formato = new DecimalFormat("#.##");
-        valorSaida = Double.valueOf(formato.format(valorSaida));
-        valorTotalSaidaMovFinan.setText(("R$" + valorSaida).replace('.', ','));
-     
-       atualizarValorTotal(valorSaida, false);
-    }
-    
-    private void atualizarValorTotal(Double valor, boolean tipo){
-       double  valorTotal = 0;
-        if(valorTotalMovFinan.getText().isEmpty()){
-           valorTotalMovFinan.setText(("R$ " + valor + "0").replace('.', ','));
-       }else if(tipo){
-           
-           valorTotal = Double.parseDouble(valorTotalMovFinan.getText().substring(2).replace(',', '.'));
-           valorTotal += valor;
-       }else{
-           valorTotal -= valor;
-       }
+//       DecimalFormat formato = new DecimalFormat("#.##");
+//        valorSaida = Double.valueOf(formato.format(valorSaida));
+        BigDecimal valorTotalSaida = new BigDecimal(valorSaida);
+        valorTotalSaida = valorTotalSaida.setScale(2, RoundingMode.HALF_UP);
         
-        valorTotalMovFinan.setText(("R$" + valorTotal + "0").replace('.', ','));
-        }
+        valorTotalSaidaMovFinan.setText(("R$" + valorTotalSaida).replace('.', ','));
+     
+       //atualizarValorTotal(valorSaida, false);
+    }
+        
+    private void atualizarValorTT(){
+       // double valorEntrada = Double.parseDouble(valorTotalEntradaMovFinan.getText());
+        //double valorSaida = Double.parseDouble(valorTotalSaidaMovFinan.getText());
+        
+        
+        double valorTl = valor - valorSaida;
+        BigDecimal valorTotal = new BigDecimal(valorTl);
+        valorTotal = valorTotal.setScale(2, RoundingMode.HALF_UP);
+        
+        String vl = String.valueOf(valorTotal);
+        valorTotalMovFinan.setText("R$"+vl.replace(".", ","));
+    }
 }

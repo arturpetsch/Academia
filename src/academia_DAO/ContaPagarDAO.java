@@ -12,6 +12,7 @@ import classes_academia.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +52,8 @@ public class ContaPagarDAO {
                 UsuarioDAO usuarioDAO = new UsuarioDAO();
                 contaPagar.setIdContaPagar(resultSet.getInt("idConta_Pagar"));
                 contaPagar.setDescricao(resultSet.getString("descricao"));
-                contaPagar.setValor(resultSet.getDouble("valor"));
+                Double valor = resultSet.getDouble("valor");
+                contaPagar.setValor(String.valueOf(valor));
                  Usuario usuario = usuarioDAO.getUsuarioPorID(resultSet.getInt("id_usuario"));
                 contaPagar.setUsuario(usuario);
                 contaPagar.setDataVencimento(resultSet.getDate("data_vencimento").toLocalDate());
@@ -78,7 +80,11 @@ public class ContaPagarDAO {
             connection = Conexao.conexao();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, contaPagar.getDescricao());
-            preparedStatement.setDouble(2, contaPagar.getValor());
+            
+            //DecimalFormat formato = new DecimalFormat("#.##");      
+            //Double valor = Double.valueOf(formato.format(contaPagar.getValor()));
+            Double valor = Double.valueOf(contaPagar.getValor());
+            preparedStatement.setDouble(2, valor);
             preparedStatement.setDate(3, java.sql.Date.valueOf(contaPagar.getDataVencimento()));
             if (contaPagar.getDataPagamento() != null) {
                 preparedStatement.setDate(4, java.sql.Date.valueOf(contaPagar.getDataPagamento()));
@@ -99,19 +105,22 @@ public class ContaPagarDAO {
 
     public boolean alterarContaPagar(ContaPagar contaPagar) {
         int idUser = pegarIdUsuario();
+        Double valor = Double.parseDouble(contaPagar.getValor());
        // if (validarAlteracaoContaPagar(contaPagar)) {
-            String sql = "UPDATE conta_pagar SET data_baixa = '" + contaPagar.getDataPagamento() + "', valor = " + contaPagar.getValor() + ", data_vencimento = '" 
+            String sql = "UPDATE conta_pagar SET data_baixa = '" + contaPagar.getDataPagamento() + "', valor = " + valor + ", data_vencimento = '" 
                     + contaPagar.getDataVencimento() + "', id_usuario = '" + idUser
                     +  "', fornecedor = '" + contaPagar.getFornecedor() + "', descricao = '" + contaPagar.getDescricao() + "'"
                     + "  WHERE idConta_Pagar = " + contaPagar.getIdContaPagar() + " ";
 
+            
             try {
+                System.err.println(valor + "NO ALTERAR CONTA");
                 connection = Conexao.conexao();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.execute();
                 preparedStatement.close();
                  SaldoDAO saldoDAO = new SaldoDAO();
-                saldoDAO.subtrairSaldo(contaPagar.getValor());
+                //saldoDAO.subtrairSaldo(contaPagar.getValor());
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
