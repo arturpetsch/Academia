@@ -234,6 +234,9 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
 
     @FXML
     protected void acaoDoSpinnerMes() {
+        valorTotalEntradaMovFinan.setText("0,00");
+        valorTotalMovFinan.setText("0,00");
+        valorTotalSaidaMovFinan.setText("0,00");
         buscarContasPagar();
         buscarContasReceber();
         atualizarValorTT();
@@ -241,6 +244,9 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
 
     @FXML
     protected void acaoDoSpinnerAno() {
+        valorTotalEntradaMovFinan.setText("0,00");
+        valorTotalMovFinan.setText("0,00");
+        valorTotalSaidaMovFinan.setText("0,00");
         buscarContasPagar();
         buscarContasReceber();
         atualizarValorTT();
@@ -555,6 +561,7 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
         double valorTl = valor - valorSaida;
         BigDecimal valorTotal = new BigDecimal(valorTl);
         valorTotal = valorTotal.setScale(2, RoundingMode.HALF_UP);
+        
         
         String vl = String.valueOf(valorTotal);
         valorTotalMovFinan.setText("R$"+vl.replace(".", ","));

@@ -5,7 +5,6 @@
  */
 package academia.Financeiro;
 
-import academia.Cliente.FXMLbuscarCliente;
 import academia.FXMLDocumentController;
 import academia.Relatorios.ReciboPagamento;
 import academia_DAO.ContaReceberDAO;
@@ -21,17 +20,20 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -41,8 +43,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import negocio_academia.Negocio_Cliente;
 import negocio_academia.Negocio_Financeiro;
@@ -121,6 +123,37 @@ public class FXMLcontasReceber implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        tabelaMensalidadeContaReceber.setOnKeyPressed((KeyEvent e) -> {
+
+            if (!tabelaMensalidadeContaReceber.getSelectionModel().isEmpty()
+                    && e.getCode() == KeyCode.DELETE) {
+
+                System.out.println("APAGAR MENSALIDADE");
+
+                DialogPane alerta = new DialogPane();
+                try {
+                    ContaReceber cr = (ContaReceber) tabelaMensalidadeContaReceber.getSelectionModel().getSelectedItem(); 
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLalertaContaReceber.fxml"));
+                     Parent root = (Parent) loader.load();
+                FXMLalertaContaReceberController  fXMLalertaContaReceberController = loader.getController();
+                Scene alert = new Scene(root);
+                Stage stage = new Stage();
+
+                stage.setScene(alert);
+                stage.setResizable(false);
+                stage.centerOnScreen();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                fXMLalertaContaReceberController.setContaReceber(cr);
+                stage.show();
+             } catch (IOException ex) {
+                    Logger.getLogger(FXMLcontaPagar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                e.consume();
+            }
+        });
+        
         tabelaClientesContaReceber.setRowFactory(tv -> {
             TableRow<Cliente> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -302,7 +335,9 @@ public class FXMLcontasReceber implements Initializable {
             Negocio_Financeiro negocio_Financeiro = new Negocio_Financeiro();
             LocalDate dataPagamento = dataPagamentoContaReceber.getValue();
             System.err.println(dataPagamento);
+            LocalDate dataVencimento = dataVencimentoContaReceber.getValue();
             contaReceberGlobal.setDataBaixa(dataPagamento);
+            contaReceberGlobal.setDataVencimento(dataVencimento);
             Double valor = Double.parseDouble(valorMensalidadeContaReceber.getText().replace(',', '.'));
             contaReceberGlobal.setValor((valor));
             if (contaReceberGlobal.getId() > 0) {
@@ -314,7 +349,7 @@ public class FXMLcontasReceber implements Initializable {
 
                     Alert gerarMensalidade = new Alert(Alert.AlertType.NONE);
                     ButtonType gerar = new ButtonType("Gerar Recibo");
-                    ButtonType cancel = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    ButtonType cancel = new ButtonType("Salvar Sem Recibo", ButtonBar.ButtonData.CANCEL_CLOSE);
                     gerarMensalidade.setTitle("Gerar Recibo");
                     gerarMensalidade.setHeaderText("Pagamento de Mensalidade realizado com sucesso!");
                    gerarMensalidade.getButtonTypes().addAll(gerar, cancel);

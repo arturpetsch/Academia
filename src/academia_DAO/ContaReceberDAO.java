@@ -79,12 +79,15 @@ public class ContaReceberDAO {
     
     public boolean alterarMensalidade(ContaReceber contaReceber){
         Date dataBaixa =  java.sql.Date.valueOf(contaReceber.getDataBaixa());
+        Date dataVencimento = java.sql.Date.valueOf(contaReceber.getDataVencimento());
         System.err.println(dataBaixa);
         
         int idUser = pegarIdUsuario();
         
-        if(validarAlteracaoMensalidade(contaReceber)){
-        String sql = "UPDATE contas_receber SET data_baixa = '" + dataBaixa + "', valor = "+ contaReceber.getValor() + ", id_usuario_conta_receber = "+idUser+" WHERE idContas_receber = " + contaReceber.getId() + "";
+        //if(validarAlteracaoMensalidade(contaReceber)){
+        String sql = "UPDATE contas_receber SET data_baixa = '" + dataBaixa + "', valor = "+ contaReceber.getValor() 
+                + ", data_vencimento = '" + dataVencimento
+                + "', id_usuario_conta_receber = "+idUser+" WHERE idContas_receber = " + contaReceber.getId() + "";
         System.err.println(sql);
         try {
             connection = Conexao.conexao();
@@ -98,8 +101,8 @@ public class ContaReceberDAO {
             e.printStackTrace();
             return false;
         }
-        }
-        return false;
+        //}
+        //return false;
     }
     
     
@@ -261,6 +264,20 @@ public class ContaReceberDAO {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+    
+    public boolean deletarContaReceber(ContaReceber contaReceber){
+        String sql = "DELETE FROM contas_receber WHERE idContas_Receber = " + contaReceber.getId() + " ";
+        try {
+            connection = Conexao.conexao();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate(sql);
+            preparedStatement.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

@@ -84,6 +84,14 @@ public class Negocio_Financeiro {
        return false;
     }
      
+     public boolean deletarContaReceber(ContaReceber contaReceber){
+        ContaReceberDAO contaReceberDAO = new ContaReceberDAO();
+        if(contaReceberDAO.deletarContaReceber(contaReceber)){
+            return true;
+        }
+        return false;
+     }
+     
     public List<ContaReceber> buscarContasReceberMesAno(int mes, int ano){
         ContaReceberDAO contaReceberDAO = new ContaReceberDAO();
         List<ContaReceber> contasReceber = new ArrayList();
