@@ -106,7 +106,6 @@ public class Academia extends Application {
             contaReceber.setMensalidade(mensalidadesAtiva);
 
             Negocio_Financeiro negocio_Financeiro = new Negocio_Financeiro();
-
             if (!negocio_Financeiro.validarMensalidadeCliente(dataVenc, contaReceber.getCliente())) {
                 if (negocio_Financeiro.inserirNovaConta(contaReceber)) {
                     System.err.println("Inserido");

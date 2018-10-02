@@ -40,7 +40,7 @@ public class Negocio_Financeiro {
     
     public boolean validarMensalidadeCliente(LocalDate dataVenc, Cliente cliente){
         ContaReceberDAO contaReceberDAO = new ContaReceberDAO();
-        if(contaReceberDAO.validarContaReceber(dataVenc, cliente.getId())){
+        if(contaReceberDAO.validarContaReceberNoMesEAno(dataVenc, cliente.getId())){
             return true;
         }else{
             return false;

@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -186,8 +187,8 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
         int mesAtual = LocalDate.now().getMonthValue();
         mesMovFinan.getSelectionModel().select(mesAtual - 1);
 
-        acaoDoSpinnerAno();
-        acaoDoSpinnerMes();
+        //acaoDoSpinnerAno();
+        //acaoDoSpinnerMes();
     }
 
     @FXML
@@ -232,7 +233,7 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
         
     }
 
-    @FXML
+    /*@FXML
     protected void acaoDoSpinnerMes() {
         valorTotalEntradaMovFinan.setText("0,00");
         valorTotalMovFinan.setText("0,00");
@@ -251,7 +252,19 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
         buscarContasReceber();
         atualizarValorTT();
     }
-
+*/
+    @FXML
+    protected void mostrarContasEValores(ActionEvent action){
+        valor = 0;
+        valorSaida = 0;
+        valorTotalEntradaMovFinan.setText("0,00");
+        valorTotalMovFinan.setText("0,00");
+        valorTotalSaidaMovFinan.setText("0,00");
+        buscarContasPagar();
+        buscarContasReceber();
+        atualizarValorTT();
+    }
+    
     @FXML
     protected void buscarContasPagar() {
         Negocio_Financeiro negocio_Financeiro = new Negocio_Financeiro();
@@ -281,6 +294,7 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
             tabelaMovFinan.getItems().setAll(contas);
 
             inserirValorNoCampoSaida(contas);
+            contas.clear();
         }
     }
 
@@ -313,7 +327,7 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
             tabelaContaReceber.getItems().setAll(contas);
 
             inserirValoresNosCampos(contas);
-            
+            contas.clear();
         }
     }
 
@@ -523,12 +537,16 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
                 valor = valor + (contasReceber.get(i).getValor());
                 i++;
             }
+            DecimalFormat formato = new DecimalFormat("#.##");
+            valor= Double.valueOf(formato.format(valor));
+            valorTotalEntradaMovFinan.setText(("R$" + valor).replace('.', ',') + "0");
+        
+        }else{
+            valorTotalEntradaMovFinan.setText("0,00");
+            valor = 0;
         }
         
-        DecimalFormat formato = new DecimalFormat("#.##");
-        valor= Double.valueOf(formato.format(valor));
-        valorTotalEntradaMovFinan.setText(("R$" + valor).replace('.', ',') + "0");
-        //atualizarValorTotal(valor, true);
+       
     }
 
     @FXML
@@ -543,19 +561,15 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
             }
         }
         
-//       DecimalFormat formato = new DecimalFormat("#.##");
-//        valorSaida = Double.valueOf(formato.format(valorSaida));
         BigDecimal valorTotalSaida = new BigDecimal(valorSaida);
         valorTotalSaida = valorTotalSaida.setScale(2, RoundingMode.HALF_UP);
         
         valorTotalSaidaMovFinan.setText(("R$" + valorTotalSaida).replace('.', ','));
      
-       //atualizarValorTotal(valorSaida, false);
+        contasPagar.clear();
     }
         
     private void atualizarValorTT(){
-       // double valorEntrada = Double.parseDouble(valorTotalEntradaMovFinan.getText());
-        //double valorSaida = Double.parseDouble(valorTotalSaidaMovFinan.getText());
         
         
         double valorTl = valor - valorSaida;

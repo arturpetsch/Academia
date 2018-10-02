@@ -80,6 +80,7 @@ public class FXMLDocumentController implements Initializable {
             dataVenc.plusMonths(1);*/
             Month mesVenc = LocalDate.now().getMonth().plus(1);
             int anoVenc;
+            
             if (mesVenc == Month.JANUARY) {
                 anoVenc = LocalDate.now().getYear() + 1;
             } else {
@@ -93,7 +94,7 @@ public class FXMLDocumentController implements Initializable {
             contaReceber.setMensalidade(mensalidadesAtiva);
 
             Negocio_Financeiro negocio_Financeiro = new Negocio_Financeiro();
-
+                        
             if (!negocio_Financeiro.validarMensalidadeCliente(dataVenc, contaReceber.getCliente())) {
                 if (negocio_Financeiro.inserirNovaConta(contaReceber)) {
                     System.err.println("Inserido");

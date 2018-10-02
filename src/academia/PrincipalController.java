@@ -240,13 +240,15 @@ public class PrincipalController implements Initializable {
             }
         }
 
-        for (Cliente cliente : clientesSegunda) {
+        
+        /*for (Cliente cliente : clientesSegunda) {
             TreeItem<String> hora = new TreeItem<String>(cliente.getHoraTreino());
             TreeItem<String> nome = new TreeItem<String>(cliente.getNome());
 
+            
             hora.getChildren().add(nome);
             segunda.getChildren().add(hora);
-
+            
         }
         
          for (Cliente cliente : clientesTerca) {
@@ -292,8 +294,118 @@ public class PrincipalController implements Initializable {
             hora.getChildren().add(nome);
             sabado.getChildren().add(hora);
 
-        }
+        }*/
+        
             
+        //atualização tabela de horários dos alunos
+        for(Cliente cliente : clientesSegunda){
+            TreeItem<String> folha = new TreeItem<String>(cliente.getNome());
+            boolean found = false;
+            
+            for(TreeItem<String> horarios : segunda.getChildren()){
+                if(horarios.getValue().contentEquals(cliente.getHoraTreino())){
+                    horarios.getChildren().add(folha);
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                TreeItem<String> horario = new TreeItem<String>(cliente.getHoraTreino());
+                segunda.getChildren().add(horario);
+                horario.getChildren().add(folha);
+            }
+        }   
+        
+        for(Cliente cliente : clientesTerca){
+            TreeItem<String> folha = new TreeItem<String>(cliente.getNome());
+            boolean found = false;
+            
+            for(TreeItem<String> horarios : terca.getChildren()){
+                if(horarios.getValue().contentEquals(cliente.getHoraTreino())){
+                    horarios.getChildren().add(folha);
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                TreeItem<String> horario = new TreeItem<String>(cliente.getHoraTreino());
+                terca.getChildren().add(horario);
+                horario.getChildren().add(folha);
+            }
+        }
+        
+        for(Cliente cliente : clientesQuarta){
+            TreeItem<String> folha = new TreeItem<String>(cliente.getNome());
+            boolean found = false;
+            
+            for(TreeItem<String> horarios : quarta.getChildren()){
+                if(horarios.getValue().contentEquals(cliente.getHoraTreino())){
+                    horarios.getChildren().add(folha);
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                TreeItem<String> horario = new TreeItem<String>(cliente.getHoraTreino());
+                quarta.getChildren().add(horario);
+                horario.getChildren().add(folha);
+            }
+        }
+        
+        for(Cliente cliente : clientesQuinta){
+            TreeItem<String> folha = new TreeItem<String>(cliente.getNome());
+            boolean found = false;
+            
+            for(TreeItem<String> horarios : quinta.getChildren()){
+                if(horarios.getValue().contentEquals(cliente.getHoraTreino())){
+                    horarios.getChildren().add(folha);
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                TreeItem<String> horario = new TreeItem<String>(cliente.getHoraTreino());
+                quinta.getChildren().add(horario);
+                horario.getChildren().add(folha);
+            }
+        }
+        
+        for(Cliente cliente : clientesSexta){
+            TreeItem<String> folha = new TreeItem<String>(cliente.getNome());
+            boolean found = false;
+            
+            for(TreeItem<String> horarios : sexta.getChildren()){
+                if(horarios.getValue().contentEquals(cliente.getHoraTreino())){
+                    horarios.getChildren().add(folha);
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                TreeItem<String> horario = new TreeItem<String>(cliente.getHoraTreino());
+                sexta.getChildren().add(horario);
+                horario.getChildren().add(folha);
+            }
+        }
+        
+        for(Cliente cliente : clientesSabado){
+            TreeItem<String> folha = new TreeItem<String>(cliente.getNome());
+            boolean found = false;
+            
+            for(TreeItem<String> horarios : sabado.getChildren()){
+                if(horarios.getValue().contentEquals(cliente.getHoraTreino())){
+                    horarios.getChildren().add(folha);
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                TreeItem<String> horario = new TreeItem<String>(cliente.getHoraTreino());
+                sabado.getChildren().add(horario);
+                horario.getChildren().add(folha);
+            }
+        }
+        
         idQuadroHorario.setShowRoot(true);
         idQuadroHorario.setRoot(quadroHorarios);
     }

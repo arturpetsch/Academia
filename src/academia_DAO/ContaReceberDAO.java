@@ -126,7 +126,7 @@ public class ContaReceberDAO {
     
     
     public boolean validarContaReceber(LocalDate dataVenc, int idCliente){
-        String sql = "SELECT * FROM contas_receber WHERE data_vencimento = '" + dataVenc + "' AND id_cliente_conta_receber = " + idCliente;
+        String sql = "SELECT * FROM contas_receber WHERE MONTH(data_vencimento) = '" + dataVenc.getMonth().getValue() + "' AND id_cliente_conta_receber = " + idCliente;
         
         ResultSet resultSet;
         try{
@@ -165,7 +165,7 @@ public class ContaReceberDAO {
     }
     
     /**
-     * Método que valida se não existe outra mensalidade daquele cliente no mesmo mês.
+     * Método que valida se não existe outra mensalidade daquele cliente no mesmo mês e ano.
      */
     public boolean validarContaReceberNoMesEAno(LocalDate data, int idCliente){
         String sql = "SELECT * FROM contas_receber WHERE MONTH(data_vencimento) = " + data.getMonthValue() + " AND YEAR(data_vencimento) =" + 
@@ -183,7 +183,7 @@ public class ContaReceberDAO {
         }catch(Exception e){
             e.printStackTrace();
         }
-        return true;
+        return false;
     }
     
     public List<ContaReceber> buscarTodasContasPorCliente(int idCliente){
