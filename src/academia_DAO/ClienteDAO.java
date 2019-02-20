@@ -61,11 +61,11 @@ public class ClienteDAO {
         return true;
     }
 
-    public List<Cliente> buscarCliente(String nomeCliente) {
+    public ArrayList<Cliente> buscarCliente(String nomeCliente) {
         System.out.println(nomeCliente);
         String sql = "SELECT * FROM Cliente WHERE nome LIKE " + "'%" + nomeCliente + "%' order by nome";
         ResultSet resultSet;
-        List<Cliente> clientes = new ArrayList();
+        ArrayList<Cliente> clientes = new ArrayList();
         try {
 
             connection = Conexao.conexao();

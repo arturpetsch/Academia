@@ -99,7 +99,14 @@ public class Academia extends Application {
                 anoVenc = LocalDate.now().getYear();
             }
 
-            LocalDate dataVenc = LocalDate.of(anoVenc, mesVenc, mensalidadesAtiva.getDiaVencimento());
+            LocalDate dataVenc;
+            if(mensalidadesAtiva.getDiaVencimento() > 28 && mesVenc.equals(Month.FEBRUARY)){
+                dataVenc = LocalDate.of(anoVenc, mesVenc, 28);
+            
+            }else{
+                dataVenc = LocalDate.of(anoVenc, mesVenc, mensalidadesAtiva.getDiaVencimento());
+            }
+            
             contaReceber.setDataVencimento(dataVenc);
             contaReceber.setDescricao(new SimpleStringProperty("Mensalidade"));
             contaReceber.setTipoConta(new SimpleBooleanProperty(true));

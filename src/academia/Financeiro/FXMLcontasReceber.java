@@ -63,21 +63,7 @@ public class FXMLcontasReceber implements Initializable {
     @FXML
     private Button botaoBuscarClienteContasReceber;
 
-    @FXML
-    private TableView tabelaClientesContaReceber = new TableView<>();
-
-    @FXML
-    private TableColumn<Cliente, String> idTabelaClienteContaReceber;
-
-    @FXML
-    private TableColumn<Cliente, String> nomeTabelaClienteContaReceber;
-
-    @FXML
-    private TableColumn<Cliente, LocalDate> DataNascimentoTabelaClienteContaReceber;
-
-    @FXML
-    private TableColumn<Cliente, String> CPFTabelaClienteContaReceber;
-
+    
     @FXML
     private TableView tabelaMensalidadeContaReceber = new TableView<>();
 
@@ -111,11 +97,12 @@ public class FXMLcontasReceber implements Initializable {
     @FXML
     private Button botaoCancelarLancamentoContaReceber;
 
-    final ObservableList<Cliente> clienteBusca = FXCollections.observableArrayList();
-
     final ObservableList<ContaReceber> contaReceberBusca = FXCollections.observableArrayList();
 
     Cliente clienteGlobal;
+
+    Cliente cliente = new Cliente();
+    
     ContaReceber contaReceberGlobal;
 
     /**
@@ -154,22 +141,7 @@ public class FXMLcontasReceber implements Initializable {
             }
         });
         
-        tabelaClientesContaReceber.setRowFactory(tv -> {
-            TableRow<Cliente> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    Cliente rowData = row.getItem();
-                    try {
-
-                        selecionarCliente(rowData);
-                    } catch (Exception e) {
-                        Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, e);
-                    }
-                }
-            });
-
-            return row;
-        });
+        
     }
 
     private void selecionarCliente(Cliente cliente) {
@@ -227,21 +199,34 @@ public class FXMLcontasReceber implements Initializable {
         contaReceberGlobal = contaReceber;
     }
 
+    /**
+     * Metodo utilizado pelo botao de busca de cliente.
+     * @param action 
+     */
     @FXML
-    private void buscarCliente(ActionEvent action) {
+    private void buscarCliente(ActionEvent action) throws IOException {
         Negocio_Cliente negocioCliente = new Negocio_Cliente();
-        List<Cliente> clientes = new ArrayList<>();
+        ArrayList<Cliente> clientes = new ArrayList<>();
         clientes = negocioCliente.buscarCliente(nomeClienteBuscaContasReceber.getText());
 
+        
         if (clientes != null) {
-            idTabelaClienteContaReceber.setCellValueFactory(new PropertyValueFactory("id"));
-            nomeTabelaClienteContaReceber.setCellValueFactory(new PropertyValueFactory("nome"));
-            CPFTabelaClienteContaReceber.setCellValueFactory(new PropertyValueFactory("cpf"));
-            DataNascimentoTabelaClienteContaReceber.setCellValueFactory(new PropertyValueFactory("dataNascimento"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("tabelaClientesContaReceber.fxml"));
+            Parent root = (Parent) loader.load();
+            TabelaClientesContaReceberController tabelaClientesContaReceberController = loader.getController();
+            Scene alert = new Scene(root);
+            Stage stage = new Stage();
 
-            formatarDataNascimento();
-            tabelaClientesContaReceber.setItems(clienteBusca);
-            tabelaClientesContaReceber.getItems().setAll(clientes);
+            stage.setScene(alert);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            tabelaClientesContaReceberController.setClientes(clientes);
+            stage.showAndWait();
+            this.cliente = tabelaClientesContaReceberController.getClienteSelecionado();
+            if (this.cliente != null) {
+                selecionarCliente(cliente);
+            }
 
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -295,22 +280,6 @@ public class FXMLcontasReceber implements Initializable {
         });
     }
 
-    private void formatarDataNascimento() {
-        DataNascimentoTabelaClienteContaReceber.setCellFactory(column -> {
-            return new TableCell<Cliente, LocalDate>() {
-
-                @Override
-                protected void updateItem(LocalDate item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (item == null) {
-
-                    } else {
-                        setText(formatarData(item));
-                    }
-                }
-            };
-        });
-    }
 
     private void formatarValor() {
         valorTabelaMensalidade.setCellFactory(column -> {
@@ -436,7 +405,6 @@ public class FXMLcontasReceber implements Initializable {
     @FXML
     private void cancelarLancamento(ActionEvent action) {
         limparCampos();
-        tabelaClientesContaReceber.setItems(null);
         tabelaMensalidadeContaReceber.setItems(null);
     }
 

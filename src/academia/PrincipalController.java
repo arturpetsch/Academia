@@ -93,6 +93,9 @@ public class PrincipalController implements Initializable {
     @FXML
     private Label labelAtivos;
     
+    @FXML
+    private Button botaoAvaliacaoFisica;
+    
     /**
      * Initializes the controller class.
      */
@@ -148,11 +151,21 @@ public class PrincipalController implements Initializable {
     }
 
     @FXML
+    private void mostrarOpcaoAvaliacao(ActionEvent action) throws IOException {
+        FXMLLoader fXMLLoader = new FXMLLoader();
+        fXMLLoader.setLocation(getClass().getResource("Avaliacao_Fisica/avaliacaoMenu.fxml"));
+        AnchorPane pane = (AnchorPane) fXMLLoader.load();
+        paneVisualizar.getChildren().setAll(pane);
+
+    }
+    
+    @FXML
     protected void alterarCorDoBotaoUsuario() {
         botaoUsuario.setStyle("-fx-background-color: white" + " -fx-text-fill: black");
         botaoUsuario.setTextFill(Color.BLACK);
         voltarCorOriginalBotaoFinanceiro();
         voltarCorOriginal();
+        voltarCorOriginalBotaoAvaliacao();
     }
 
     @FXML
@@ -167,6 +180,7 @@ public class PrincipalController implements Initializable {
         botaoClientes.setTextFill(Color.BLACK);
         voltarCorOriginalBotaoFinanceiro();
         voltarCorOriginalUsuario();
+        voltarCorOriginalBotaoAvaliacao();
     }
 
     @FXML
@@ -181,6 +195,7 @@ public class PrincipalController implements Initializable {
         botaoFinanceiro.setTextFill(Color.BLACK);
         voltarCorOriginal();
         voltarCorOriginalUsuario();
+        voltarCorOriginalBotaoAvaliacao();
     }
 
     @FXML
@@ -189,6 +204,21 @@ public class PrincipalController implements Initializable {
         botaoFinanceiro.setTextFill(Color.WHITE);
     }
 
+    @FXML
+    protected void alterarCorDoBotaoAvaliacao() {
+        botaoAvaliacaoFisica.setStyle("-fx-background-color: white" + " -fx-text-fill: black");
+        botaoAvaliacaoFisica.setTextFill(Color.BLACK);
+        voltarCorOriginal();
+        voltarCorOriginalUsuario();
+        voltarCorOriginalBotaoFinanceiro();
+    }
+
+    @FXML
+    protected void voltarCorOriginalBotaoAvaliacao() {
+        botaoAvaliacaoFisica.setStyle("-fx-background-color: #4169E1");
+        botaoAvaliacaoFisica.setTextFill(Color.WHITE);
+    }
+    
     @FXML
     private void preencherQuadroHorarios() {
         Negocio_Cliente negocioCliente = new Negocio_Cliente();

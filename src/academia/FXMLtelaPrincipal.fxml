@@ -37,6 +37,11 @@
                         <Font size="10.0" />
                      </font>
                   </Button>
+                  <Button fx:id="botaoAvaliacaoFisica" layoutX="330.0" layoutY="1.0" mnemonicParsing="false" onAction="#mostrarOpcaoAvaliacao" onMouseEntered="#alterarCorDoBotaoAvaliacao" prefHeight="60.0" prefWidth="88.0" style="-fx-background-color: #4169E1;" text="Avaliação Física" textAlignment="CENTER" textFill="#fffefe" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
                </children>
                <effect>
                   <InnerShadow blurType="GAUSSIAN" height="18.03" radius="7.775" width="15.07" />

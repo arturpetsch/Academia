@@ -125,9 +125,9 @@ public class Negocio_Cliente {
         }
     }
 
-    public List<Cliente> buscarCliente(String nomeCliente) {
+    public ArrayList<Cliente> buscarCliente(String nomeCliente) {
         ClienteDAO clienteDAO = new ClienteDAO();
-        List<Cliente> clientes = new ArrayList<>();
+        ArrayList<Cliente> clientes = new ArrayList<>();
         clientes = clienteDAO.buscarCliente(nomeCliente);
         if (clientes != null) {
             return clientes;
