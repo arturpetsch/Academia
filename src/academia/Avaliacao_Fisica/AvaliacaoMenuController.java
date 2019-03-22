@@ -51,10 +51,10 @@ public class AvaliacaoMenuController implements Initializable {
     
     @FXML
     private void mostrarOpcaoAvaliacaoReabilitacao(ActionEvent action) throws IOException{ //quando clica no botao buscar;
-        //FXMLLoader fXMLLoader = new FXMLLoader();
-        //fXMLLoader.setLocation(getClass().getResource("FXMLbuscarCliente.fxml"));
-        //AnchorPane pane = (AnchorPane) fXMLLoader.load();
-        //idPainelDireitoCliente.getChildren().setAll(pane);
+        FXMLLoader fXMLLoader = new FXMLLoader();
+        fXMLLoader.setLocation(getClass().getResource("avaliacaoReabilitacao.fxml"));
+        AnchorPane pane = (AnchorPane) fXMLLoader.load();
+        idPainelDireitoCliente.getChildren().setAll(pane);
     }
     
   
