@@ -5,13 +5,11 @@
  */
 package academia.Avaliacao_Fisica;
 
+import academia_DAO.AvaliacaoReabilitacaoDAO;
 import academia_DAO.ClienteDAO;
 import classes_academia.AvaliacaoReabilitacao;
 import classes_academia.Cliente;
-import com.sun.org.apache.bcel.internal.Repository;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -23,7 +21,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,7 +38,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
 
 /**
  * FXML Controller class
@@ -209,10 +205,27 @@ public class AvaliacaoReabilitacaoController implements Initializable {
             tabelaReabilitacaoController.setAvaliacao(avaliacoes);
             stage.showAndWait();
             this.avaliacaoReabilitacao = tabelaReabilitacaoController.getAvaliacaoSelecionada();
-            popularDadosCliente();
             if (this.avaliacaoReabilitacao != null && this.avaliacaoReabilitacao.getIdAvaliacaoReabilitacao()>0) {
+                popularDadosClienteAvaliacao();
                 popularCamposAvaliacao();
+            }else{
+                popularDadosCliente();
             }
+    }
+   
+     private void popularDadosClienteAvaliacao(){
+        nomeClienteReabilitacao.setText(cliente.getNome());
+        dataReabilitacao.setText(avaliacaoReabilitacao.getData_hora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        dataNascimentoReabilitacao.setText(cliente.getDataNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        
+        if(cliente.getSexo()){
+            sexoReabilitacao.setText("Masculino");
+        }else{
+            sexoReabilitacao.setText("Feminino");
+        }
+        
+        long idade = ChronoUnit.YEARS.between(cliente.getDataNascimento(), LocalDate.now());
+        idadeClienteReabilitacao.setText(String.valueOf(idade));
     }
     
     private void popularDadosCliente(){
@@ -237,6 +250,33 @@ public class AvaliacaoReabilitacaoController implements Initializable {
     @FXML
     private void popularCamposAvaliacao() {
         //colocar todas as fotos aqui
+        File[] imagens;
+        File diretorio = new File("C:\\Users\\Public\\Documents\\Fotos Academia"+"\\");
+        imagens = diretorio.listFiles();
+        
+        for (File imagen : imagens) {
+            String nome = imagen.getName();
+            System.err.println(nomeClienteReabilitacao.getText()+dataReabilitacao.getText().replace("/", "."));
+            if(nome.contains(nomeClienteReabilitacao.getText()+dataReabilitacao.getText().replace("/", "."))){
+                Image imagem = new Image(imagen.toURI().toString());
+                if(imagem1.getImage()==null){
+                    imagem1.setImage(imagem);
+                }else if(imagem2.getImage()==null){
+                imagem2.setImage(imagem);
+                }else if(imagem3.getImage()==null){
+                imagem3.setImage(imagem);
+                }else if(imagem4.getImage()==null){
+                imagem4.setImage(imagem);
+                }else if(imagem5.getImage()==null){
+                imagem5.setImage(imagem);
+                }else if(imagem6.getImage()==null){
+                imagem6.setImage(imagem);
+                }else if(imagem7.getImage()==null){
+                imagem7.setImage(imagem);
+            }
+            }
+            
+        }
         descricao.setText(avaliacaoReabilitacao.getDescricao());
         exercicios.setText(avaliacaoReabilitacao.getExercicios());
         medicamentos.setText(avaliacaoReabilitacao.getMedicamentos());
@@ -266,15 +306,58 @@ public class AvaliacaoReabilitacaoController implements Initializable {
         limparCampos();
     }
     
+    /**
+     * Método utilizado pelo botao salvar. Salva uma nova avaliacao ou as
+     * alterações feitas em um já existente.
+     *
+     * @param action
+     */
+    @FXML
+    protected void salvarAvaliacao(ActionEvent action) {
+        AvaliacaoReabilitacaoDAO avaliacaoReabilitacaoDAO = new AvaliacaoReabilitacaoDAO();
+        
+        if(this.avaliacaoReabilitacao == null){
+            this.avaliacaoReabilitacao = new AvaliacaoReabilitacao();
+        }
+        
+        
+        if (avaliacaoReabilitacao.getIdAvaliacaoReabilitacao() == 0 && getAtributosAvaliacao()) {
+            if(avaliacaoReabilitacao.getCliente() != null){
+            avaliacaoReabilitacaoDAO.salvarAvaliacaoFisica(avaliacaoReabilitacao);
+            Alert confirmacao = new Alert(Alert.AlertType.INFORMATION);
+            confirmacao.setTitle("Salvar Avaliação");
+            confirmacao.setHeaderText("Avaliação Cadastrada com Sucesso!");
+            confirmacao.showAndWait();
+            limparCampos();
+            }
+        } else if (getAtributosAvaliacao() && avaliacaoReabilitacao.getIdAvaliacaoReabilitacao() > 0) {
+            if (avaliacaoReabilitacaoDAO.atualizarAvaliacaoFisica(avaliacaoReabilitacao)) {
+                    
+                Alert confirmacao = new Alert(Alert.AlertType.INFORMATION);
+                confirmacao.setTitle("Salvar Avaliação");
+                confirmacao.setHeaderText("Avaliação Atualizada com Sucesso!");
+                confirmacao.showAndWait();
+                limparCampos();
+        }
+        }else{
+                Alert confirmacao = new Alert(Alert.AlertType.WARNING);
+                confirmacao.setTitle("Salvar Avaliação");
+                confirmacao.setHeaderText("Faltam campos a ser preenchidos!");
+                confirmacao.showAndWait();
+        }
+    }
+    
     @FXML
     private void abrirImagem(ActionEvent action) throws IOException{
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imagens", "*"));
         imagens = fileChooser.showOpenMultipleDialog(null);
+        
         int i = 0;
         for(File file : imagens){
             Image imagem = new Image(file.toURI().toString());
             BufferedImage imag = ImageIO.read(file);
+            
             if(imagem1.getImage()==null){
                 //Image imagem = new Image(file.toURI().toString());
                 imagem1.setImage(imagem);
@@ -312,8 +395,8 @@ public class AvaliacaoReabilitacaoController implements Initializable {
                 try {
                     //BufferedImage imageB  = setImagem(image.getAbsolutePath(), 500, 500);
                     BufferedImage imag = ImageIO.read(image);
-            
-                    File outputFile = new File("C:\\Users\\Public\\Documents\\Fotos Academia"+"\\"+i+nomeClienteReabilitacao.getText()+dataReabilitacao.getText()+".jpeg");
+                    String data = dataReabilitacao.getText().replace("/", ".");
+                    File outputFile = new File("C:\\Users\\Public\\Documents\\Fotos Academia"+"\\"+i+nomeClienteReabilitacao.getText()+data+".jpeg");
                     ImageIO.write( imag, "jpg", outputFile);
                     i++;
                 } catch (Exception e) {
@@ -326,5 +409,72 @@ public class AvaliacaoReabilitacaoController implements Initializable {
         
         BufferedImage imagemB = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_ARGB);
         return imagemB;
+    }
+    
+    /**
+     * Método que coleta os dados de todos os campos da tela e seta no objeto
+     * avaliacao fisica.
+     */
+    private boolean getAtributosAvaliacao() {
+        if (verificarCamposVazios()) {
+            this.avaliacaoReabilitacao.setDescricao(descricao.getText());
+            this.avaliacaoReabilitacao.setMedicamentos(medicamentos.getText());
+            this.avaliacaoReabilitacao.setExercicios(exercicios.getText());
+            this.avaliacaoReabilitacao.setTratamento_anterior(tratamentosAnteriores.getText());
+            this.avaliacaoReabilitacao.setCliente(cliente);
+             this.avaliacaoReabilitacao.setData_hora(LocalDate.now());
+            this.avaliacaoReabilitacao.setIdade(Integer.parseInt(idadeClienteReabilitacao.getText()));
+           
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Método que valida se os campos estão vazios.
+     */
+    private boolean verificarCamposVazios() {
+        boolean retorno = true;
+        int contador = 0;
+        if (descricao.getText().isEmpty()) {
+            descricao.setStyle("-fx-border-color:red");
+            contador++;
+        } else {
+            descricao.setStyle("-fx-border-color:#bbaFFF");
+            contador--;
+        }
+
+        if (exercicios.getText().isEmpty()) {
+            exercicios.setStyle("-fx-border-color:red");
+            contador++;
+        } else {
+            exercicios.setStyle("-fx-border-color:#bbaFFF");
+            contador--;
+        }
+
+        if (medicamentos.getText().isEmpty()) {
+            medicamentos.setStyle("-fx-border-color:red");
+            contador++;
+        } else {
+            medicamentos.setStyle("-fx-border-color:#bbaFFF");
+            contador--;
+        }
+
+        if (tratamentosAnteriores.getText().isEmpty()) {
+            tratamentosAnteriores.setStyle("-fx-border-color:red");
+            contador++;
+        } else {
+            tratamentosAnteriores.setStyle("-fx-border-color:#bbaFFF");
+            contador--;
+        }
+        
+        if (contador <= -4) {
+            retorno = true;
+        } else {
+            retorno = false;
+        }
+
+        return retorno;
+       
     }
 }

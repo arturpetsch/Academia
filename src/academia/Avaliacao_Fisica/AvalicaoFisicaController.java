@@ -509,14 +509,23 @@ public class AvalicaoFisicaController implements Initializable {
             if (this.avaliacaoFisica != null && this.avaliacaoFisica.getIdAvaliacaoFisica()>0) {
                 popularCamposAvaliacao();
             }
-       // }//else{
-            //Alert confirmacao = new Alert(Alert.AlertType.INFORMATION);
-            //confirmacao.setTitle("Buscar Avaliações");
-            //confirmacao.setHeaderText("Nenhuma avaliação encontrada.\n!");
-            //confirmacao.showAndWait();
-        //}
     }
     
+     private void popularDadosClienteAvaliacao(){
+       nomeClienteAvalicao.setText(cliente.getNome());
+        dataAvaliacao.setText(avaliacaoFisica.getData_hora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        dataNascimentoAvaliacao.setText(cliente.getDataNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        
+        if(cliente.getSexo()){
+            sexoAvalicao.setText("Masculino");
+        }else{
+            sexoAvalicao.setText("Feminino");
+        }
+        
+        long idade = ChronoUnit.YEARS.between(cliente.getDataNascimento(), LocalDate.now());
+        idadeClienteAvaliacao.setText(String.valueOf(idade));
+    }
+     
     private void popularDadosCliente(){
         nomeClienteAvalicao.setText(cliente.getNome());
         dataAvaliacao.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
