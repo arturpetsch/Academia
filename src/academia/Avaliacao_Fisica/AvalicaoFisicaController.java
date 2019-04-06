@@ -505,9 +505,12 @@ public class AvalicaoFisicaController implements Initializable {
             tabelaAvaliacoesController.setAvaliacao(avaliacoes);
             stage.showAndWait();
             this.avaliacaoFisica = tabelaAvaliacoesController.getAvaliacaoSelecionada();
-            popularDadosCliente();
+            
             if (this.avaliacaoFisica != null && this.avaliacaoFisica.getIdAvaliacaoFisica()>0) {
                 popularCamposAvaliacao();
+                popularDadosClienteAvaliacao();
+            }else{
+                popularDadosCliente();
             }
     }
     

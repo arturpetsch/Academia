@@ -34,6 +34,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -49,84 +50,87 @@ public class AvaliacaoReabilitacaoController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    
     @FXML
     private Button botaoCancelarReabilitacao;
-    
+
     @FXML
     private Button botaoSalvarReabilitacao;
-    
+
     @FXML
     private Button botaoExcluirReabilitacao;
-    
+
     @FXML
     private TextArea tratamentosAnteriores;
-    
+
     @FXML
     private TextArea medicamentos;
-    
+
     @FXML
     private TextArea exercicios;
-    
+
     @FXML
     private TextArea descricao;
-    
+
     @FXML
     private TextField nomeClienteBusca;
-    
+
     @FXML
     private Button botaoBuscar;
-    
+
     @FXML
     private Label nomeClienteReabilitacao;
-    
+
     @FXML
     private Label dataReabilitacao;
-    
+
     @FXML
     private Label idadeClienteReabilitacao;
-    
+
     @FXML
     private Label dataNascimentoReabilitacao;
-    
+
     @FXML
     private Label sexoReabilitacao;
-    
+
     @FXML
     private Button abrirImagem;
-    
+
     @FXML
     private ImageView imagem1 = null;
-    
+
     @FXML
     private ImageView imagem2 = null;
-    
+
     @FXML
     private ImageView imagem3 = null;
-    
+
     @FXML
     private ImageView imagem4 = null;
-    
+
     @FXML
     private ImageView imagem5 = null;
-    
+
     @FXML
     private ImageView imagem6 = null;
-    
+
     @FXML
     private ImageView imagem7 = null;
-    
+
     List<File> imagens = new ArrayList();
+
+    List<File> imagensCarregas = new ArrayList();
     
+    File[] imagens1;
+
     AvaliacaoReabilitacao avaliacaoReabilitacao = new AvaliacaoReabilitacao();
-    
+
     Cliente cliente = new Cliente();
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
- 
+    }
+
     /**
      * Metodo utilizado para coletar o nome informado, buscar e retornar uma
      * lista com os clientes.
@@ -147,7 +151,32 @@ public class AvaliacaoReabilitacaoController implements Initializable {
             Logger.getLogger(AvalicaoFisicaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    @FXML
+    private void visualizarImagem(MouseEvent action) throws IOException {
+
+        if (imagem1 != null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("visualizarImagem.fxml"));
+            Parent root = (Parent) loader.load();
+            VisualizarImagemController visualizarImagemController = loader.getController();
+            Scene alert = new Scene(root);
+            Stage stage = new Stage();
+
+            stage.setScene(alert);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            visualizarImagemController.setImagem(imagensCarregas);
+            stage.showAndWait();
+
+        } else {
+            Alert confirmacao = new Alert(Alert.AlertType.INFORMATION);
+            confirmacao.setTitle("Visualizar Imagem");
+            confirmacao.setHeaderText("Nenhuma imagem encontrada.");
+            confirmacao.showAndWait();
+        }
+    }
+
     /**
      * Metodo que mostra a tabela com todos os clientes. Apos selecionado o
      * cliente, é mostrado a tabela de datas de avaliações já realizadas.
@@ -178,71 +207,72 @@ public class AvaliacaoReabilitacaoController implements Initializable {
             confirmacao.setTitle("Buscar Cliente");
             confirmacao.setHeaderText("Nenhum cliente encontrado.\nPor favor, refaça sua pesquisa!");
             confirmacao.showAndWait();
-        }    
+        }
     }
-    
+
     /**
-     * Metodo que mostra a tabela com todas as avaliações do cliente selecionado.
+     * Metodo que mostra a tabela com todas as avaliações do cliente
+     * selecionado.
      */
     @FXML
-    private void mostrarAvaliacoes() throws IOException{
+    private void mostrarAvaliacoes() throws IOException {
         AvaliacaoReabilitacaoDAO avaliacaoReabilitacaoDAO = new AvaliacaoReabilitacaoDAO();
-        
+
         ArrayList<AvaliacaoReabilitacao> avaliacoes = new ArrayList<AvaliacaoReabilitacao>();
         avaliacoes = avaliacaoReabilitacaoDAO.consultarAvaliacaoPorCliente(cliente);
-        
-        //if(!avaliacoes.isEmpty()){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("tabelaReabilitacao.fxml"));
-            Parent root = (Parent) loader.load();
-            TabelaReabilitacaoController tabelaReabilitacaoController = loader.getController();
-            Scene alert = new Scene(root);
-            Stage stage = new Stage();
 
-            stage.setScene(alert);
-            stage.setResizable(false);
-            stage.centerOnScreen();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            tabelaReabilitacaoController.setAvaliacao(avaliacoes);
-            stage.showAndWait();
-            this.avaliacaoReabilitacao = tabelaReabilitacaoController.getAvaliacaoSelecionada();
-            if (this.avaliacaoReabilitacao != null && this.avaliacaoReabilitacao.getIdAvaliacaoReabilitacao()>0) {
-                popularDadosClienteAvaliacao();
-                popularCamposAvaliacao();
-            }else{
-                popularDadosCliente();
-            }
+        //if(!avaliacoes.isEmpty()){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("tabelaReabilitacao.fxml"));
+        Parent root = (Parent) loader.load();
+        TabelaReabilitacaoController tabelaReabilitacaoController = loader.getController();
+        Scene alert = new Scene(root);
+        Stage stage = new Stage();
+
+        stage.setScene(alert);
+        stage.setResizable(false);
+        stage.centerOnScreen();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        tabelaReabilitacaoController.setAvaliacao(avaliacoes);
+        stage.showAndWait();
+        this.avaliacaoReabilitacao = tabelaReabilitacaoController.getAvaliacaoSelecionada();
+        if (this.avaliacaoReabilitacao != null && this.avaliacaoReabilitacao.getIdAvaliacaoReabilitacao() > 0) {
+            popularDadosClienteAvaliacao();
+            popularCamposAvaliacao();
+        } else {
+            popularDadosCliente();
+        }
     }
-   
-     private void popularDadosClienteAvaliacao(){
+
+    private void popularDadosClienteAvaliacao() {
         nomeClienteReabilitacao.setText(cliente.getNome());
         dataReabilitacao.setText(avaliacaoReabilitacao.getData_hora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         dataNascimentoReabilitacao.setText(cliente.getDataNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        
-        if(cliente.getSexo()){
+
+        if (cliente.getSexo()) {
             sexoReabilitacao.setText("Masculino");
-        }else{
+        } else {
             sexoReabilitacao.setText("Feminino");
         }
-        
+
         long idade = ChronoUnit.YEARS.between(cliente.getDataNascimento(), LocalDate.now());
         idadeClienteReabilitacao.setText(String.valueOf(idade));
     }
-    
-    private void popularDadosCliente(){
+
+    private void popularDadosCliente() {
         nomeClienteReabilitacao.setText(cliente.getNome());
         dataReabilitacao.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         dataNascimentoReabilitacao.setText(cliente.getDataNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        
-        if(cliente.getSexo()){
+
+        if (cliente.getSexo()) {
             sexoReabilitacao.setText("Masculino");
-        }else{
+        } else {
             sexoReabilitacao.setText("Feminino");
         }
-        
+
         long idade = ChronoUnit.YEARS.between(cliente.getDataNascimento(), LocalDate.now());
         idadeClienteReabilitacao.setText(String.valueOf(idade));
     }
-    
+
     /**
      * Método que popula os campos da tela com as informações da avaliacao
      * selecionado.
@@ -250,39 +280,39 @@ public class AvaliacaoReabilitacaoController implements Initializable {
     @FXML
     private void popularCamposAvaliacao() {
         //colocar todas as fotos aqui
-        File[] imagens;
-        File diretorio = new File("C:\\Users\\Public\\Documents\\Fotos Academia"+"\\");
-        imagens = diretorio.listFiles();
-        
-        for (File imagen : imagens) {
+
+        File diretorio = new File("C:\\Users\\Public\\Documents\\Fotos Academia" + "\\");
+        imagens1 = diretorio.listFiles();
+
+        for (File imagen : imagens1) {
             String nome = imagen.getName();
-            System.err.println(nomeClienteReabilitacao.getText()+dataReabilitacao.getText().replace("/", "."));
-            if(nome.contains(nomeClienteReabilitacao.getText()+dataReabilitacao.getText().replace("/", "."))){
+
+            if (nome.contains(nomeClienteReabilitacao.getText() + dataReabilitacao.getText().replace("/", "."))) {
                 Image imagem = new Image(imagen.toURI().toString());
-                if(imagem1.getImage()==null){
+                if (imagem1.getImage() == null) {
                     imagem1.setImage(imagem);
-                }else if(imagem2.getImage()==null){
-                imagem2.setImage(imagem);
-                }else if(imagem3.getImage()==null){
-                imagem3.setImage(imagem);
-                }else if(imagem4.getImage()==null){
-                imagem4.setImage(imagem);
-                }else if(imagem5.getImage()==null){
-                imagem5.setImage(imagem);
-                }else if(imagem6.getImage()==null){
-                imagem6.setImage(imagem);
-                }else if(imagem7.getImage()==null){
-                imagem7.setImage(imagem);
+                } else if (imagem2.getImage() == null) {
+                    imagem2.setImage(imagem);
+                } else if (imagem3.getImage() == null) {
+                    imagem3.setImage(imagem);
+                } else if (imagem4.getImage() == null) {
+                    imagem4.setImage(imagem);
+                } else if (imagem5.getImage() == null) {
+                    imagem5.setImage(imagem);
+                } else if (imagem6.getImage() == null) {
+                    imagem6.setImage(imagem);
+                } else if (imagem7.getImage() == null) {
+                    imagem7.setImage(imagem);
+                }
             }
-            }
-            
+
         }
         descricao.setText(avaliacaoReabilitacao.getDescricao());
         exercicios.setText(avaliacaoReabilitacao.getExercicios());
         medicamentos.setText(avaliacaoReabilitacao.getMedicamentos());
         tratamentosAnteriores.setText(avaliacaoReabilitacao.getTratamento_anterior());
     }
-    
+
     /**
      * Método que limpa o(s) campo(s) na tela de Veiculo.
      */
@@ -293,19 +323,25 @@ public class AvaliacaoReabilitacaoController implements Initializable {
         dataNascimentoReabilitacao.setText("");
         idadeClienteReabilitacao.setText("");
         sexoReabilitacao.setText("");
-        
+
         descricao.setText("");
         tratamentosAnteriores.setText("");
         exercicios.setText("");
         medicamentos.setText("");
-        
+        imagem1.setImage(null);
+        imagem2.setImage(null);
+        imagem3.setImage(null);
+        imagem4.setImage(null);
+        imagem5.setImage(null);
+        imagem6.setImage(null);
+        imagem7.setImage(null);
     }
-    
+
     @FXML
     private void cancelarOperacao(ActionEvent action) {
         limparCampos();
     }
-    
+
     /**
      * Método utilizado pelo botao salvar. Salva uma nova avaliacao ou as
      * alterações feitas em um já existente.
@@ -315,102 +351,140 @@ public class AvaliacaoReabilitacaoController implements Initializable {
     @FXML
     protected void salvarAvaliacao(ActionEvent action) {
         AvaliacaoReabilitacaoDAO avaliacaoReabilitacaoDAO = new AvaliacaoReabilitacaoDAO();
-        
-        if(this.avaliacaoReabilitacao == null){
+
+        if (this.avaliacaoReabilitacao == null) {
             this.avaliacaoReabilitacao = new AvaliacaoReabilitacao();
         }
-        
-        
+
         if (avaliacaoReabilitacao.getIdAvaliacaoReabilitacao() == 0 && getAtributosAvaliacao()) {
-            if(avaliacaoReabilitacao.getCliente() != null){
-            avaliacaoReabilitacaoDAO.salvarAvaliacaoFisica(avaliacaoReabilitacao);
-            Alert confirmacao = new Alert(Alert.AlertType.INFORMATION);
-            confirmacao.setTitle("Salvar Avaliação");
-            confirmacao.setHeaderText("Avaliação Cadastrada com Sucesso!");
-            confirmacao.showAndWait();
-            limparCampos();
+            if (avaliacaoReabilitacao.getCliente() != null) {
+                avaliacaoReabilitacaoDAO.salvarAvaliacaoFisica(avaliacaoReabilitacao);
+                salvarImagens();
+                Alert confirmacao = new Alert(Alert.AlertType.INFORMATION);
+                confirmacao.setTitle("Salvar Avaliação");
+                confirmacao.setHeaderText("Avaliação Cadastrada com Sucesso!");
+                confirmacao.showAndWait();
+                limparCampos();
             }
         } else if (getAtributosAvaliacao() && avaliacaoReabilitacao.getIdAvaliacaoReabilitacao() > 0) {
             if (avaliacaoReabilitacaoDAO.atualizarAvaliacaoFisica(avaliacaoReabilitacao)) {
-                    
+                salvarImagens();
                 Alert confirmacao = new Alert(Alert.AlertType.INFORMATION);
                 confirmacao.setTitle("Salvar Avaliação");
                 confirmacao.setHeaderText("Avaliação Atualizada com Sucesso!");
                 confirmacao.showAndWait();
                 limparCampos();
-        }
-        }else{
-                Alert confirmacao = new Alert(Alert.AlertType.WARNING);
-                confirmacao.setTitle("Salvar Avaliação");
-                confirmacao.setHeaderText("Faltam campos a ser preenchidos!");
-                confirmacao.showAndWait();
+            }
+        } else {
+            Alert confirmacao = new Alert(Alert.AlertType.WARNING);
+            confirmacao.setTitle("Salvar Avaliação");
+            confirmacao.setHeaderText("Faltam campos a ser preenchidos!");
+            confirmacao.showAndWait();
         }
     }
-    
+
     @FXML
-    private void abrirImagem(ActionEvent action) throws IOException{
+    private void abrirImagem(ActionEvent action) throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imagens", "*"));
         imagens = fileChooser.showOpenMultipleDialog(null);
-        
+
         int i = 0;
-        for(File file : imagens){
-            Image imagem = new Image(file.toURI().toString());
-            BufferedImage imag = ImageIO.read(file);
-            
-            if(imagem1.getImage()==null){
-                //Image imagem = new Image(file.toURI().toString());
-                imagem1.setImage(imagem);
-            }else if(imagem2.getImage()==null){
-            imagem2.setImage(imagem);
-            }else if(imagem3.getImage()==null){
-            imagem3.setImage(imagem);
-            }else if(imagem4.getImage()==null){
-            imagem4.setImage(imagem);
-            }else if(imagem5.getImage()==null){
-            imagem5.setImage(imagem);
-            }else if(imagem6.getImage()==null){
-            imagem6.setImage(imagem);
-            }else if(imagem7.getImage()==null){
-            imagem7.setImage(imagem);
+        if (imagens != null) {
+            for (File file : imagens) {
+                Image imagem = new Image(file.toURI().toString());
+                BufferedImage imag = ImageIO.read(file);
+                
+                if (imagem1.getImage() == null) {
+                    //Image imagem = new Image(file.toURI().toString());
+                    imagem1.setImage(imagem);
+                } else if (imagem2.getImage() == null) {
+                    imagem2.setImage(imagem);
+                } else if (imagem3.getImage() == null) {
+                    imagem3.setImage(imagem);
+                } else if (imagem4.getImage() == null) {
+                    imagem4.setImage(imagem);
+                } else if (imagem5.getImage() == null) {
+                    imagem5.setImage(imagem);
+                } else if (imagem6.getImage() == null) {
+                    imagem6.setImage(imagem);
+                } else if (imagem7.getImage() == null) {
+                    imagem7.setImage(imagem);
+                }
+                imagensCarregas.add(file);
+                System.err.println(imagensCarregas.size());
             }
         }
-       
     }
-    
+
+    /**
+     * Metodo utilizado pelo botao Excluir que executa a exclusão da avaliação
+     * selecionada.
+     *
+     * @param action
+     */
     @FXML
-    private void salvarImagens(ActionEvent action) throws IOException{
-            int i = 1;
-            
-            ArrayList<Image> img = new ArrayList<>();    
-            img.add(imagem1.getImage());
-            img.add(imagem2.getImage());
-            img.add(imagem3.getImage());
-            img.add(imagem4.getImage());
-            img.add(imagem5.getImage());
-            img.add(imagem6.getImage());
-            img.add(imagem7.getImage());
-            
-            for (File image : imagens) {
-                try {
-                    //BufferedImage imageB  = setImagem(image.getAbsolutePath(), 500, 500);
-                    BufferedImage imag = ImageIO.read(image);
-                    String data = dataReabilitacao.getText().replace("/", ".");
-                    File outputFile = new File("C:\\Users\\Public\\Documents\\Fotos Academia"+"\\"+i+nomeClienteReabilitacao.getText()+data+".jpeg");
-                    ImageIO.write( imag, "jpg", outputFile);
-                    i++;
-                } catch (Exception e) {
-                }
-            }
-                    
+    private void deletarAvaliacao(ActionEvent action) throws IOException {
+        if (this.avaliacaoReabilitacao.getIdAvaliacaoReabilitacao() > 0) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmacaoAcaoAvaliacaoReabilitacao.fxml"));
+            Parent root = (Parent) loader.load();
+            ConfirmacaoAcaoAvaliacaoReabilitacaoController confirmacaoAcaoAvaliacaoReabilitacaoController = loader.getController();
+            Scene alert = new Scene(root);
+            Stage stage = new Stage();
+
+            stage.setScene(alert);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            confirmacaoAcaoAvaliacaoReabilitacaoController.setAvaliacaoReabilitacao(avaliacaoReabilitacao);
+            stage.showAndWait();
+            deletarImagens();
+            limparCampos();
+        }
     }
-    
-    private BufferedImage setImagem(String caminho, int largura, int altura){
-        
+
+    private void deletarImagens() throws IOException {
+        for (File file : imagens1) {
+            file.delete();
+
+        }
+    }
+
+    @FXML
+    private void salvarImagens() {
+        int i = 1;
+
+        ArrayList<Image> img = new ArrayList<>();
+        img.add(imagem1.getImage());
+        img.add(imagem2.getImage());
+        img.add(imagem3.getImage());
+        img.add(imagem4.getImage());
+        img.add(imagem5.getImage());
+        img.add(imagem6.getImage());
+        img.add(imagem7.getImage());
+
+        for (File image : imagens) {
+            try {
+
+                BufferedImage imag = ImageIO.read(image);
+                String data = dataReabilitacao.getText().replace("/", ".");
+                File outputFile = new File("C:\\Users\\Public\\Documents\\Fotos Academia" + "\\" + i + nomeClienteReabilitacao.getText() + data + ".jpeg");
+                ImageIO.write(imag, "jpg", outputFile);
+                System.err.println(image.getPath());
+
+                i++;
+            } catch (Exception e) {
+            }
+        }
+
+    }
+
+    private BufferedImage setImagem(String caminho, int largura, int altura) {
+
         BufferedImage imagemB = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_ARGB);
         return imagemB;
     }
-    
+
     /**
      * Método que coleta os dados de todos os campos da tela e seta no objeto
      * avaliacao fisica.
@@ -422,9 +496,9 @@ public class AvaliacaoReabilitacaoController implements Initializable {
             this.avaliacaoReabilitacao.setExercicios(exercicios.getText());
             this.avaliacaoReabilitacao.setTratamento_anterior(tratamentosAnteriores.getText());
             this.avaliacaoReabilitacao.setCliente(cliente);
-             this.avaliacaoReabilitacao.setData_hora(LocalDate.now());
+            this.avaliacaoReabilitacao.setData_hora(LocalDate.now());
             this.avaliacaoReabilitacao.setIdade(Integer.parseInt(idadeClienteReabilitacao.getText()));
-           
+
             return true;
         }
         return false;
@@ -467,7 +541,7 @@ public class AvaliacaoReabilitacaoController implements Initializable {
             tratamentosAnteriores.setStyle("-fx-border-color:#bbaFFF");
             contador--;
         }
-        
+
         if (contador <= -4) {
             retorno = true;
         } else {
@@ -475,6 +549,6 @@ public class AvaliacaoReabilitacaoController implements Initializable {
         }
 
         return retorno;
-       
+
     }
 }
