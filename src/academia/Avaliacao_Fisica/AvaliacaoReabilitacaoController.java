@@ -129,6 +129,7 @@ public class AvaliacaoReabilitacaoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+       abrirImagem.setVisible(false);
     }
 
     /**
@@ -168,7 +169,8 @@ public class AvaliacaoReabilitacaoController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             visualizarImagemController.setImagem(imagensCarregas);
             stage.showAndWait();
-
+            imagens = visualizarImagemController.getImagens();
+            atualizarImagensView();
         } else {
             Alert confirmacao = new Alert(Alert.AlertType.INFORMATION);
             confirmacao.setTitle("Visualizar Imagem");
@@ -177,6 +179,39 @@ public class AvaliacaoReabilitacaoController implements Initializable {
         }
     }
 
+    private void atualizarImagensView(){
+        imagem1.setImage(null);
+        imagem2.setImage(null);
+        imagem3.setImage(null);
+        imagem4.setImage(null);
+        imagem5.setImage(null);
+        imagem6.setImage(null);
+        imagem7.setImage(null);
+        
+        int i = 0;
+        if (imagens != null) {
+            while(i<imagens.size()){
+                Image imagem = new Image(imagens.get(i).toURI().toString());
+                if(i==0){
+                    imagem1.setImage(imagem);
+                }else if(i==1){
+                    imagem2.setImage(imagem);
+                }else if(i==2){
+                    imagem3.setImage(imagem);
+                }else if(i==3){
+                    imagem4.setImage(imagem);
+                }else if(i==4){
+                    imagem5.setImage(imagem);
+                }else if(i==5){
+                    imagem6.setImage(imagem);
+                }else if(i==6){
+                    imagem7.setImage(imagem);
+                }
+                
+                i++;
+            }
+        }
+    }
     /**
      * Metodo que mostra a tabela com todos os clientes. Apos selecionado o
      * cliente, é mostrado a tabela de datas de avaliações já realizadas.
@@ -241,6 +276,7 @@ public class AvaliacaoReabilitacaoController implements Initializable {
         } else {
             popularDadosCliente();
         }
+        abrirImagem.setVisible(true);
     }
 
     private void popularDadosClienteAvaliacao() {
@@ -289,6 +325,8 @@ public class AvaliacaoReabilitacaoController implements Initializable {
 
             if (nome.contains(nomeClienteReabilitacao.getText() + dataReabilitacao.getText().replace("/", "."))) {
                 Image imagem = new Image(imagen.toURI().toString());
+                //inserir no imagensCarrega apenas a foto que eh do cliente.
+                imagensCarregas.add(imagen);
                 if (imagem1.getImage() == null) {
                     imagem1.setImage(imagem);
                 } else if (imagem2.getImage() == null) {
@@ -305,7 +343,7 @@ public class AvaliacaoReabilitacaoController implements Initializable {
                     imagem7.setImage(imagem);
                 }
             }
-
+            
         }
         descricao.setText(avaliacaoReabilitacao.getDescricao());
         exercicios.setText(avaliacaoReabilitacao.getExercicios());

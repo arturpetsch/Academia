@@ -16,7 +16,7 @@
       </Label>
       <Button fx:id="botaoAvanca" layoutX="707.0" layoutY="237.0" mnemonicParsing="false" onAction="#proximaFoto" prefHeight="48.0" prefWidth="36.0" text="&gt;&gt;" />
       <Button fx:id="botaoVolta" layoutX="8.0" layoutY="233.0" mnemonicParsing="false" onAction="#fotoAnterior" prefHeight="48.0" prefWidth="36.0" text="&lt;&lt;" />
-      <Button fx:id="botaoAtualizar" layoutX="601.0" layoutY="462.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="103.0" text="Atualizar " wrapText="true" />
-      <Button fx:id="botaoExcluir" layoutX="491.0" layoutY="462.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="103.0" text="Excluir" wrapText="true" />
+      <Button fx:id="botaoAtualizar" layoutX="493.0" layoutY="462.0" mnemonicParsing="false" onAction="#atualizarFoto" prefHeight="40.0" prefWidth="103.0" text="Atualizar " wrapText="true" />
+      <Button fx:id="botaoExcluir" layoutX="604.0" layoutY="462.0" mnemonicParsing="false" onAction="#excluirFoto" prefHeight="40.0" prefWidth="103.0" text="Excluir" wrapText="true" />
    </children>
 </AnchorPane>

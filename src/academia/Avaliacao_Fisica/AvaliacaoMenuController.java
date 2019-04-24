@@ -62,7 +62,7 @@ public class AvaliacaoMenuController implements Initializable {
     protected void alterarCorDoBotaoAvaliacaoFisica(){
          botaoAvaliacaoFisica.setStyle("-fx-background-color: white; -fx-text-fill: black");
          botaoAvaliacaoFisica.setTextFill(Color.BLACK);
-         //voltarCorOriginalBotaoBuscar();
+         voltarCorOriginalBotaoAvaliacaoReabilitacao();
     }
     
     @FXML
@@ -73,15 +73,15 @@ public class AvaliacaoMenuController implements Initializable {
     
     @FXML
     protected void alterarCorDoBotaoAvaliacaoReabilitacao(){
-        // botaoBuscarCliente.setStyle("-fx-background-color: white; -fx-text-fill: black");
-        // botaoBuscarCliente.setTextFill(Color.BLACK);
-        // voltarCorOriginalBotaoCliente();
+        botaoAvaliacaoReabilitacao.setStyle("-fx-background-color: white; -fx-text-fill: black");
+        botaoAvaliacaoReabilitacao.setTextFill(Color.BLACK);
+        voltarCorOriginalBotaoAvaliacaoFisica();
     }
     
     @FXML
     protected void voltarCorOriginalBotaoAvaliacaoReabilitacao(){
-         //botaoBuscarCliente.setStyle("-fx-background-color: #001235");
-         //botaoBuscarCliente.setTextFill(Color.WHITE);
+         botaoAvaliacaoReabilitacao.setStyle("-fx-background-color: #001235");
+         botaoAvaliacaoReabilitacao.setTextFill(Color.WHITE);
     }
 }
 
