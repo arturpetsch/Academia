@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="avaliacaoFisic" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1024538f-0e89-41c0-b35a-7d8ffff12bb5">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="studioD.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<subDataset name="Dataset1" uuid="d53eef96-b1c5-4630-a32f-2baf361a2ad9">
+		<property name="com.jaspersoft.studio.data.sql.tables">
+			<![CDATA[YXZhbGlhY2FvZmlzaWNhICwxNSwxNSwwMTA4MGZmOS0yNGIxLTQwYzItODQxYS1iNzg1ZWJjMmM5
+ZjY7
+]]>
+		</property>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="studioD.xml"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT *
+FROM avaliacaofisica
+WHERE 
+	 avaliacaofisica.id_cliente_aval_fisica = $P{idCliente}]]>
+		</queryString>
+	</subDataset>
+	<parameter name="logo" class="java.awt.Image"/>
+	<parameter name="torax" class="java.util.ArrayList"/>
+	<parameter name="idCliente" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<field name="idAvaliacaoFisica" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idAvaliacaoFisica"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="peso" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="peso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="altura" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="altura"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="id_cliente_aval_fisica" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id_cliente_aval_fisica"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="torax" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="torax"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="torax2" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="torax2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="cintura" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="cintura"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="abdominal" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="abdominal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="quadril" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="quadril"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="bisseps_direito" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="bisseps_direito"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="bisseps_esquerdo" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="bisseps_esquerdo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="coxa_esquerda" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="coxa_esquerda"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="coxa_direita" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="coxa_direita"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="perna_esquerda" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="perna_esquerda"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="perna_direita" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="perna_direita"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="perc_gordura" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="perc_gordura"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="perc_livre_gordura" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="perc_livre_gordura"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="perc_ideal_gordura" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="perc_ideal_gordura"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="perc_gord_sobra" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="perc_gord_sobra"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="imc" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="imc"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="rc_q" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="rc_q"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="peso_gordura" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="peso_gordura"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="peso_magro" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="peso_magro"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="peso_excedente" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="peso_excedente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="data_hora" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="data_hora"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="idade" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="pressao_arterial" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="pressao_arterial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="f_c_repouso" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="f_c_repouso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="f_c_max" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="f_c_max"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="f_c_res" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="f_c_res"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="fct_inf" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="fct_inf"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="fct_sup" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="fct_sup"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="perc_int_inf" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="perc_int_inf"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="perc_int_sup" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="perc_int_sup"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="d_c" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="d_c"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="hipertensao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="hipertensao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="diabetes" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="diabetes"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="fumante" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fumante"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="bebida_alcoolica" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="bebida_alcoolica"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="d_c_familiar" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="d_c_familiar"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="obesidade_familiar" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="obesidade_familiar"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="hipertensao_familiar" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="hipertensao_familiar"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="diabetes_familiar" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="diabetes_familiar"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="prat_atividade_fisica" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="prat_atividade_fisica"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="modalidade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="modalidade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="frequencia_semanal_atividade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="frequencia_semanal_atividade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="duracao" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="duracao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="medicamentos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="medicamentos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="outros" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="outros"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<field name="objetivos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="objetivos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="avaliacaofisica"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="280" height="79" uuid="a4f6fc2e-21fe-4b9d-b2f7-7218548b2c40"/>
+				<textFieldExpression><![CDATA[$P{logo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="234" splitType="Stretch">
+			<componentElement>
+				<reportElement x="110" y="30" width="100" height="30" uuid="481e4ae6-87ba-4129-b160-f2d63d3990bb"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Dataset1" uuid="49c83460-eb0f-4e73-aec7-c8245552304b">
+						<parametersMapExpression><![CDATA[$P{torax}]]></parametersMapExpression>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:listContents height="30" width="100"/>
+				</jr:list>
+			</componentElement>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="243" splitType="Stretch">
+			<lineChart>
+				<chart evaluationTime="Report">
+					<reportElement x="80" y="34" width="389" height="200" uuid="e7724645-06de-4c4e-9aa8-f7a8c16a206e"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["SERIES 1"]]></seriesExpression>
+						<categoryExpression><![CDATA[0]]></categoryExpression>
+						<valueExpression><![CDATA[$P{torax}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot>
+					<plot/>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

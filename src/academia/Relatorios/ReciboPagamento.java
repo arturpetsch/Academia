@@ -40,7 +40,7 @@ public class ReciboPagamento {
         caminhoFinal = this.path.substring(0, sizeFinal); //executar no pc do user; retirar isso para funcionar no pc desenvolvimento;
         
         //alterar tudo de "caminhoFinal" para this.path para funcionar no momento do desenv. 
-        System.out.println("PATH: " +caminhoFinal + "\\src\\relatorios\\reciboMatricula.jrxml");
+        System.out.println("PATH: " +this.path + "\\src\\relatorios\\reciboMatricula.jrxml");
         //"/pastadoProjeto/relatorios/
     }
 
@@ -53,12 +53,12 @@ public class ReciboPagamento {
         cReceber = (ArrayList<ContaReceber>) mensalidade;
         String valorFinal = String.valueOf(cReceber.get(0).getValor()).replace('.', ',');
         java.awt.Image logo = new ImageIcon(getClass().getResource("/academia/icon/logo.jpg")).getImage();
-        System.err.println("caminho logo: " + this.caminhoFinal + "\\src\\icon\\logo.jpg");
+        System.err.println("caminho logo: " + this.path + "\\src\\icon\\logo.jpg");
         params.put("logo", logo);
         params.put("valorFinal", valorFinal);
         //String caminho = "/academia/relatorios/reciboMatricula.jrxml";
         
-       JasperReport report = JasperCompileManager.compileReport(caminhoFinal + "\\src\\relatorios\\recibo.jrxml");
+       JasperReport report = JasperCompileManager.compileReport(this.path + "\\src\\relatorios\\recibo.jrxml");
         
         //JasperReport report = JasperCompileManager.compileReport(this.path + "\\src\\relatorios\\recibo.jrxml"); // modo desenv.
         
@@ -75,7 +75,7 @@ public class ReciboPagamento {
         }catch(Exception e){
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Erro no Recibo");
-            alerta.setHeaderText("Erro ao gerar o Recibo!\n" + this.caminhoFinal + "\\src\\relatorios\\recibo.jrxml");
+            alerta.setHeaderText("Erro ao gerar o Recibo!\n" + this.path + "\\src\\relatorios\\recibo.jrxml");
             alerta.showAndWait();
         }
     }

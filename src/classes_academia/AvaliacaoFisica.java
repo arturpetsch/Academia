@@ -6,6 +6,7 @@
 package classes_academia;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -66,7 +67,8 @@ public class AvaliacaoFisica {
     private SimpleStringProperty objetivos;
     private SimpleDoubleProperty duracao;
     private int idAvaliacaoFisica;
-
+    private ArrayList<Avaliacoes> avaliacoes = new ArrayList<Avaliacoes>();
+    
     public AvaliacaoFisica() {
        peso = new SimpleDoubleProperty();
        altura = new SimpleDoubleProperty();
@@ -114,6 +116,7 @@ public class AvaliacaoFisica {
         medicamentos = new SimpleStringProperty("");
         outros = new SimpleStringProperty("");
         objetivos = new SimpleStringProperty("");
+        avaliacoes = new ArrayList<>();
     }
 
     
@@ -516,6 +519,14 @@ public class AvaliacaoFisica {
 
     public void setDuracao(Double duracao) {
         this.duracao.set(duracao);
+    }
+
+    public ArrayList<Avaliacoes> getAvaliacoes() {
+        return avaliacoes;
+    }
+
+    public void setAvaliacoes(ArrayList<Avaliacoes> avaliacoes) {
+        this.avaliacoes = avaliacoes;
     }
     
     

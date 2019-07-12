@@ -23,7 +23,37 @@ import java.util.logging.Logger;
 public class AvaliacaoFisicaDAO {
     
     private Connection connection = null;
-     
+    
+    public ArrayList<AvaliacaoFisica> consultarDadosClienteEmAvaliacao(Cliente cliente){
+         
+        String busca = "SELECT idade, peso, altura, idAvaliacaoFisica FROM avaliacaofisica WHERE id_cliente_aval_fisica = " 
+                + cliente.getId() + " ORDER BY id_cliente_aval_fisica DESC LIMIT 1";
+        
+        ResultSet resultSet;
+        AvaliacaoFisica avaliacaoFisica = new AvaliacaoFisica();
+        ArrayList<AvaliacaoFisica> avaliacao = new ArrayList<>();
+        
+        try {
+            
+            connection = Conexao.conexao();
+            PreparedStatement preparedStatement = connection.prepareStatement(busca);
+            resultSet = preparedStatement.executeQuery(busca);
+            
+            if(resultSet.next()){
+                avaliacaoFisica.setPeso(resultSet.getDouble("peso"));
+                avaliacaoFisica.setAltura(resultSet.getDouble("altura"));
+                avaliacaoFisica.setIdade(resultSet.getInt("idade"));
+                avaliacaoFisica.setCliente(cliente);
+                avaliacaoFisica.setIdAvaliacaoFisica(resultSet.getInt("idAvaliacaoFisica"));
+                avaliacao.add(avaliacaoFisica);
+            }
+            return avaliacao;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
     public ArrayList<AvaliacaoFisica> consultarAvaliacaoPorCliente(Cliente cliente){
         String busca = "SELECT * FROM avaliacaofisica WHERE id_cliente_aval_fisica = " + cliente.getId();
         
@@ -255,5 +285,59 @@ public class AvaliacaoFisicaDAO {
             return false;
         }
         return true;
+    }
+    
+    public ArrayList<Double> buscarAvaliacoesPorCliente(int idCliente){
+        String sql = "SELECT torax FROM avaliacaofisica WHERE id_cliente_aval_fisica = " + idCliente;
+        
+         ResultSet resultSet;
+         ArrayList<Double> torax = new ArrayList<Double>();
+         
+        try{
+            
+            connection = Conexao.conexao();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            resultSet = preparedStatement.executeQuery(sql);
+            
+            while(resultSet.next()){
+                AvaliacaoFisica avaliacaoFisica = new AvaliacaoFisica();
+                avaliacaoFisica.setTorax(resultSet.getDouble("torax"));
+                torax.add(avaliacaoFisica.getTorax());
+                
+            }
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return torax;
+    }
+    
+    public ArrayList<Double> buscarTorax2PorCliente(int idCliente){
+        String sql = "SELECT torax2 FROM avaliacaofisica WHERE id_cliente_aval_fisica = " + idCliente;
+        
+         ResultSet resultSet;
+         ArrayList<Double> torax2 = new ArrayList<Double>();
+         
+        try{
+            
+            connection = Conexao.conexao();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            resultSet = preparedStatement.executeQuery(sql);
+            
+            while(resultSet.next()){
+                AvaliacaoFisica avaliacaoFisica = new AvaliacaoFisica();
+                avaliacaoFisica.setTorax(resultSet.getDouble("torax2"));
+                torax2.add(avaliacaoFisica.getTorax2());
+                
+            }
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return torax2;
     }
 }

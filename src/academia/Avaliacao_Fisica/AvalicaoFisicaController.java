@@ -5,10 +5,15 @@
  */
 package academia.Avaliacao_Fisica;
 
+import academia.Financeiro.FXMLcontasReceber;
+import academia.Relatorios.ReciboAvaliacaoFisica;
+import academia.Relatorios.ReciboPagamento;
 import academia_DAO.AvaliacaoFisicaDAO;
 import academia_DAO.ClienteDAO;
+import academia_DAO.ContaReceberDAO;
 import classes_academia.AvaliacaoFisica;
 import classes_academia.Cliente;
+import classes_academia.ContaReceber;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -17,6 +22,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +36,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -41,6 +49,8 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  * FXML Controller class
@@ -640,7 +650,21 @@ public class AvalicaoFisicaController implements Initializable {
             confirmacao.setHeaderText("Avaliação Cadastrada com Sucesso!");
             confirmacao.showAndWait();
             limparCampos();
-            }
+            
+            Alert gerarMensalidade = new Alert(Alert.AlertType.NONE);
+                    ButtonType gerar = new ButtonType("Sim");
+                    ButtonType cancel = new ButtonType("Não", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    gerarMensalidade.setTitle("Gerar Relatório");
+                    gerarMensalidade.setHeaderText("Gerar Relatório Avaliação Física?");
+                   gerarMensalidade.getButtonTypes().addAll(gerar, cancel);
+                   gerarMensalidade.initStyle(StageStyle.UTILITY);
+                  
+                    gerarMensalidade.showAndWait().ifPresent(b -> {
+                        if (b == gerar) {
+                            gerarRecibo();
+                        }
+                    });
+                            }            
         } else if (getAtributosAvaliacao() && avaliacaoFisica.getIdAvaliacaoFisica() > 0) {
             if (avaliacaoFisicaDAO.atualizarAvaliacaoFisica(avaliacaoFisica)) {
                     
@@ -649,8 +673,20 @@ public class AvalicaoFisicaController implements Initializable {
                 confirmacao.setHeaderText("Avaliação Atualizada com Sucesso!");
                 confirmacao.showAndWait();
                 limparCampos();
-            
+            Alert gerarMensalidade = new Alert(Alert.AlertType.NONE);
+                    ButtonType gerar = new ButtonType("Sim");
+                    ButtonType cancel = new ButtonType("Não", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    gerarMensalidade.setTitle("Gerar Relatório");
+                    gerarMensalidade.setHeaderText("Gerar Relatório Avaliação Física?");
+                   gerarMensalidade.getButtonTypes().addAll(gerar, cancel);
+                   gerarMensalidade.initStyle(StageStyle.UTILITY);
+                  
+                    gerarMensalidade.showAndWait().ifPresent(b -> {
+                        if (b == gerar) {
+                            gerarRecibo();
         }
+                    });
+                            }
         }else{
                 Alert confirmacao = new Alert(Alert.AlertType.WARNING);
                 confirmacao.setTitle("Salvar Avaliação");
@@ -1188,5 +1224,18 @@ public class AvalicaoFisicaController implements Initializable {
         obesidadeHistoricoFamiliar.getSelectionModel().selectFirst();
     }
     
-    
+     public void gerarRecibo() {
+        
+         ReciboAvaliacaoFisica reciboAvaliacaoFisica = new ReciboAvaliacaoFisica();
+        AvaliacaoFisicaDAO avaliacaoFisicaDAO = new AvaliacaoFisicaDAO();
+        Collection<AvaliacaoFisica> avaliacaoF = new ArrayList();
+        
+        avaliacaoF = avaliacaoFisicaDAO.consultarAvaliacaoPorCliente(cliente);
+        
+        try {
+            reciboAvaliacaoFisica.gerarReciboAvaliacaoFisica(avaliacaoF);
+        } catch (JRException ex) {
+            Logger.getLogger(FXMLcontasReceber.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
