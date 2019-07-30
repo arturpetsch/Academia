@@ -5,6 +5,8 @@
  */
 package academia.Avaliacao_Fisica;
 
+import academia.Financeiro.FXMLcontasReceber;
+import academia.Relatorios.RelatorioAvaliacaoReabilitacao;
 import academia_DAO.AvaliacaoReabilitacaoDAO;
 import academia_DAO.ClienteDAO;
 import classes_academia.AvaliacaoReabilitacao;
@@ -17,6 +19,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -29,6 +32,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -38,7 +43,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.imageio.ImageIO;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  * FXML Controller class
@@ -403,6 +410,19 @@ public class AvaliacaoReabilitacaoController implements Initializable {
                 confirmacao.setHeaderText("Avaliação Cadastrada com Sucesso!");
                 confirmacao.showAndWait();
                 limparCampos();
+                Alert gerarMensalidade = new Alert(Alert.AlertType.NONE);
+                    ButtonType gerar = new ButtonType("Sim");
+                    ButtonType cancel = new ButtonType("Não", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    gerarMensalidade.setTitle("Gerar Relatório");
+                    gerarMensalidade.setHeaderText("Gerar Relatório Avaliação Reabilitação?");
+                   gerarMensalidade.getButtonTypes().addAll(gerar, cancel);
+                   gerarMensalidade.initStyle(StageStyle.UTILITY);
+                  
+                    gerarMensalidade.showAndWait().ifPresent(b -> {
+                        if (b == gerar) {
+                            gerarRecibo();
+                        }
+                    });
             }
         } else if (getAtributosAvaliacao() && avaliacaoReabilitacao.getIdAvaliacaoReabilitacao() > 0) {
             if (avaliacaoReabilitacaoDAO.atualizarAvaliacaoFisica(avaliacaoReabilitacao)) {
@@ -412,6 +432,20 @@ public class AvaliacaoReabilitacaoController implements Initializable {
                 confirmacao.setHeaderText("Avaliação Atualizada com Sucesso!");
                 confirmacao.showAndWait();
                 limparCampos();
+                Alert gerarMensalidade = new Alert(Alert.AlertType.NONE);
+                    ButtonType gerar = new ButtonType("Sim");
+                    ButtonType cancel = new ButtonType("Não", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    gerarMensalidade.setTitle("Gerar Relatório");
+                    gerarMensalidade.setHeaderText("Gerar Relatório Avaliação Física?");
+                   gerarMensalidade.getButtonTypes().addAll(gerar, cancel);
+                   gerarMensalidade.initStyle(StageStyle.UTILITY);
+                  
+                    gerarMensalidade.showAndWait().ifPresent(b -> {
+                        if (b == gerar) {
+                            gerarRecibo();
+                        }
+                    });
+                            
             }
         } else {
             Alert confirmacao = new Alert(Alert.AlertType.WARNING);
@@ -424,7 +458,7 @@ public class AvaliacaoReabilitacaoController implements Initializable {
     @FXML
     private void abrirImagem(ActionEvent action) throws IOException {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imagens", "*"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imagens [ .jpeg ]", "*"));
         imagens = fileChooser.showOpenMultipleDialog(null);
 
         int i = 0;
@@ -589,4 +623,20 @@ public class AvaliacaoReabilitacaoController implements Initializable {
         return retorno;
 
     }
+    
+    public void gerarRecibo() {
+        
+         RelatorioAvaliacaoReabilitacao relatorioAvaliacaoReabilitacao = new RelatorioAvaliacaoReabilitacao();
+        AvaliacaoReabilitacaoDAO avaliacaoReabilitacaoDAO = new AvaliacaoReabilitacaoDAO();
+        Collection<AvaliacaoReabilitacao> avaliacaoF = new ArrayList();
+        
+        avaliacaoF = avaliacaoReabilitacaoDAO.consultarDadosClienteEmAvaliacao(cliente);
+        
+        try {
+            relatorioAvaliacaoReabilitacao.gerarRelatorioAvaliacaoReabilitacao(avaliacaoF, imagensCarregas);
+        } catch (JRException ex) {
+            Logger.getLogger(FXMLcontasReceber.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }

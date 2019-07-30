@@ -10,6 +10,7 @@ import classes_academia.Cliente;
 import classes_academia.ContaPagar;
 import classes_academia.ContaReceber;
 import classes_academia.Usuario;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
@@ -27,7 +28,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -36,6 +41,8 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import negocio_academia.Negocio_Financeiro;
 
 /**
@@ -120,6 +127,12 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
     @FXML
     private TableColumn<ContaReceber, LocalDate> dataPagamentoTabelaCR;
 
+    @FXML
+    private ComboBox anoGerarRelatorio;
+    
+    @FXML
+    private Button botaoGerarRelatorio;
+    
     final ObservableList<ContaReceber> contaBusca = FXCollections.observableArrayList();
     final ObservableList<ContaPagar> contaPagarBusca = FXCollections.observableArrayList();
 
@@ -160,6 +173,8 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
         anos.add(2040);
 
         anoMovFinan.setItems(anos);
+        anoGerarRelatorio.setItems(anos);
+        anoGerarRelatorio.getSelectionModel().select(0);
         int i = 0;
         while (anos.size() > i) {
             if (anos.get(i) == LocalDate.now().getYear()) {
@@ -580,4 +595,29 @@ public class FXMLmovimentacaoFinanceira implements Initializable {
         String vl = String.valueOf(valorTotal);
         valorTotalMovFinan.setText("R$"+vl.replace(".", ","));
     }
+    
+    /**
+     * Metodo que chama a tela onde será apresentado o gráfico das movimentações financeiras conforme o
+     * ano passado por parametro.
+     * @param action 
+     */
+    @FXML
+    private void gerarRelatorio(ActionEvent action) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("graficoMovimentacaoFinanceiro.fxml"));
+            Parent root = (Parent) loader.load();
+            GraficoMovimentacaoFinanceiroController graficoMovimentacaoFinanceiroController  = loader.getController();
+            Scene alert = new Scene(root);
+            Stage stage = new Stage();
+            
+            stage.setScene(alert);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            //tabelaClientesContaReceberController.setClientes(clientes);
+            graficoMovimentacaoFinanceiroController.setAno(anoGerarRelatorio.getValue().toString());
+
+            stage.showAndWait();
+            
+    }
+    
 }

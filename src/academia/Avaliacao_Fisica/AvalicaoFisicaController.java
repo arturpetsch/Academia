@@ -1230,7 +1230,7 @@ public class AvalicaoFisicaController implements Initializable {
         AvaliacaoFisicaDAO avaliacaoFisicaDAO = new AvaliacaoFisicaDAO();
         Collection<AvaliacaoFisica> avaliacaoF = new ArrayList();
         
-        avaliacaoF = avaliacaoFisicaDAO.consultarAvaliacaoPorCliente(cliente);
+        avaliacaoF = avaliacaoFisicaDAO.consultarDadosClienteEmAvaliacao(cliente);
         
         try {
             reciboAvaliacaoFisica.gerarReciboAvaliacaoFisica(avaliacaoF);

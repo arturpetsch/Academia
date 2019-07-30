@@ -233,6 +233,42 @@ public class ContaReceberDAO {
             }
     }
     
+    public ArrayList<ContaReceber> buscarMensalidadesPorAno(int ano){
+        String sql = "SELECT * FROM contas_receber WHERE YEAR(data_vencimento) = " 
+                + ano + " AND data_baixa IS NOT NULL"; 
+        
+        ClienteDAO clienteDAO = new ClienteDAO();
+        ResultSet resultSet;
+        ArrayList<ContaReceber> contasReceber = new ArrayList();
+
+        try {
+            connection = Conexao.conexao();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery(sql);
+            while (resultSet.next()) {
+                ContaReceber contaReceber = new ContaReceber();
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                contaReceber.setId(resultSet.getInt("idContas_Receber"));
+                Cliente cliente = clienteDAO.buscarClientePeloID(resultSet.getInt("id_cliente_conta_receber"));
+                contaReceber.setCliente(cliente);
+                Usuario usuario = usuarioDAO.getUsuarioPorID(resultSet.getInt("id_usuario_conta_receber"));
+                contaReceber.setUsuario(usuario);
+                contaReceber.setValor(((resultSet.getDouble("valor"))));
+                contaReceber.setDataVencimento(resultSet.getDate("data_vencimento").toLocalDate()); //aqui esta o erro
+                if(resultSet.getDate("data_baixa") != null){
+                    contaReceber.setDataBaixa(resultSet.getDate("data_baixa").toLocalDate());
+                }
+                contaReceber.setTipoConta(new SimpleBooleanProperty((resultSet.getBoolean("tipo_conta"))));
+                contaReceber.setDescricao(new SimpleStringProperty(resultSet.getString("descricao")));
+                contasReceber.add(contaReceber);
+            }
+            return contasReceber;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     public List<ContaReceber> buscarMensalidadeAnoMes(int mes, int ano) {
         String sql = "SELECT * FROM contas_receber WHERE MONTH(data_vencimento) = " + mes + " AND YEAR(data_vencimento) = " + ano + " AND MONTH(data_baixa) IS NOT NULL";
         ClienteDAO clienteDAO = new ClienteDAO();

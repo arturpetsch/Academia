@@ -20,6 +20,40 @@ public class AvaliacaoReabilitacaoDAO {
     
     private Connection connection = null;
     
+    public ArrayList<AvaliacaoReabilitacao> consultarDadosClienteEmAvaliacao(Cliente cliente){
+         
+        String busca = "SELECT * FROM avaliacaoreabilitacao WHERE id_cliente_aval_reab = " 
+                + cliente.getId() + " ORDER BY id_cliente_aval_reab DESC LIMIT 1";
+        
+        ResultSet resultSet;
+        AvaliacaoReabilitacao avaliacaoReabilitacao = new AvaliacaoReabilitacao();
+        ArrayList<AvaliacaoReabilitacao> avaliacao = new ArrayList<>();
+        
+        try {
+            
+            connection = Conexao.conexao();
+            PreparedStatement preparedStatement = connection.prepareStatement(busca);
+            resultSet = preparedStatement.executeQuery(busca);
+            
+            if(resultSet.next()){
+               // avaliacaoReabilitacao.setPeso(resultSet.getDouble("peso"));
+                //avaliacaoReabilitacao.setAltura(resultSet.getDouble("altura"));
+                avaliacaoReabilitacao.setDescricao(resultSet.getString("descricao"));
+                avaliacaoReabilitacao.setMedicamentos(resultSet.getString("medicamentos"));
+                avaliacaoReabilitacao.setTratamento_anterior(resultSet.getString("tratamento_anterior"));
+                avaliacaoReabilitacao.setExercicios(resultSet.getString("exercicios"));
+                avaliacaoReabilitacao.setIdade(resultSet.getInt("idade"));
+                avaliacaoReabilitacao.setCliente(cliente);
+                //avaliacaoReabilitacao.setIdAvaliacaoFisica(resultSet.getInt("idAvaliacaoFisica"));
+                avaliacao.add(avaliacaoReabilitacao);
+            }
+            return avaliacao;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
     public ArrayList<AvaliacaoReabilitacao> consultarAvaliacaoPorCliente(Cliente cliente){
         String busca = "SELECT * FROM avaliacaoreabilitacao WHERE id_cliente_aval_reab = " + cliente.getId();
         

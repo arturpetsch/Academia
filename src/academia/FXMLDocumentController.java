@@ -33,6 +33,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -60,6 +61,10 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         gerarMensalidade();
+        idNomeUsuario.textProperty().addListener((ov, oldValue, newValue) -> {
+        idNomeUsuario.setText(newValue.toUpperCase());
+        });
+        
     }
 
     private void gerarMensalidade(){
@@ -167,6 +172,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     public void AcaoBotaEnter() {
+       
         btnEntrarSistema.setOnKeyPressed((KeyEvent evento) -> {
             if (evento.getCode() == KeyCode.ENTER) {
                  if (validarCampos()) {
@@ -204,6 +210,9 @@ public class FXMLDocumentController implements Initializable {
                
                 Scene scene = new Scene(telaPrincipal);
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Image icone = new Image(getClass().getResourceAsStream("/academia/icon/gym.png"));
+                stage.getIcons().add(icone);
+        
                 stage.setTitle("Gerenciador de Academia");
                 stage.setScene(scene);
                 stage.centerOnScreen();

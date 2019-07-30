@@ -23,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import negocio_academia.Negocio_Cliente;
 import negocio_academia.Negocio_Financeiro;
@@ -49,13 +50,15 @@ public class Academia extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
 
+        Image icone = new Image(getClass().getResourceAsStream("/academia/icon/gym.png"));
+        stage.getIcons().add(icone);
         
         Scene scene = new Scene(root);
         stage.setTitle("Entrar no Sistema");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-
+        
         //gerarMensalidades();
         /*ReciboPagamento reciboPagamento = new ReciboPagamento();
         ContaReceberDAO contaReceberDAO = new ContaReceberDAO();

@@ -36,6 +36,40 @@ public class ContaPagarDAO {
         return 1;
     }
     
+    public ArrayList<ContaPagar> buscarContasAPagarPorAno(int ano){
+        String sql = "SELECT * FROM conta_pagar WHERE YEAR(data_vencimento) = " + ano + " AND data_baixa IS NOT NULL";
+        ResultSet resultSet;
+        ArrayList<ContaPagar> contasPagar = new ArrayList();
+
+        try {
+            connection = Conexao.conexao();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery(sql);
+            while (resultSet.next()) {
+                ContaPagar contaPagar = new ContaPagar();
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                contaPagar.setIdContaPagar(resultSet.getInt("idConta_Pagar"));
+                contaPagar.setDescricao(resultSet.getString("descricao"));
+                Double valor = resultSet.getDouble("valor");
+                contaPagar.setValor(String.valueOf(valor));
+                 Usuario usuario = usuarioDAO.getUsuarioPorID(resultSet.getInt("id_usuario"));
+                contaPagar.setUsuario(usuario);
+                contaPagar.setDataVencimento(resultSet.getDate("data_vencimento").toLocalDate());
+
+                if (resultSet.getDate("data_baixa") != null) {
+                    contaPagar.setDataPagamento(resultSet.getDate("data_baixa").toLocalDate());
+                }
+                contaPagar.setParcela(resultSet.getInt("parcela"));
+                contaPagar.setFornecedor(resultSet.getString("fornecedor"));
+                contaPagar.setTipoConta(resultSet.getBoolean("tipo_conta"));
+                contasPagar.add(contaPagar);
+            }
+            return contasPagar;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     
     public List<ContaPagar> pegarContasPagarMesAno(int mes, int ano) {
         String sql = "SELECT * FROM conta_pagar WHERE MONTH(data_vencimento) = " + mes + " AND YEAR(data_vencimento) = " + ano;

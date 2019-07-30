@@ -110,5 +110,8 @@
          </font>
       </Label>
       <Button fx:id="botaoMostrar" layoutX="494.0" layoutY="48.0" mnemonicParsing="false" onAction="#mostrarContasEValores" prefHeight="44.0" prefWidth="120.0" text="Mostrar" />
+      <Button fx:id="botaoGerarRelatorio" layoutX="938.0" layoutY="38.0" mnemonicParsing="false" onAction="#gerarRelatorio" prefHeight="54.0" prefWidth="120.0" text="Gerar Relatório" />
+      <ComboBox fx:id="anoGerarRelatorio" layoutX="844.0" layoutY="67.0" prefHeight="25.0" prefWidth="87.0" />
+      <Label layoutX="844.0" layoutY="40.0" text="Selecione o ano:" />
    </children>
 </AnchorPane>
