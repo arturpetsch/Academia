@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="avaliacaoFisica" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7d9a1aed-0b3f-4a9f-aab7-9c86878e60c2">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="avaliacaoFisica" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="38f989d5-030f-4d09-8995-83a9df29028f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="studioD.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="net.sf.jasperreports.print.create.bookmarks" value="true"/>
@@ -14,53 +14,54 @@
 	<parameter name="altura" class="java.lang.Double"/>
 	<parameter name="mes" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT (torax), (torax2)
-					, data_hora
-					,cintura
-					,abdominal
-					,quadril
-					,bisseps_direito
-					,bisseps_esquerdo
-					,coxa_esquerda
-					,coxa_direita
-					,perc_gordura
-					,perna_esquerda
-					,perna_direita
-					,perc_livre_gordura
-					,perc_ideal_gordura
-					,perc_gord_sobra
-					,imc
-					,rc_q
-					,peso_gordura
-					,peso_magro
-					,peso_excedente
-					,pressao_arterial
-					,f_c_repouso
-					,f_c_max
-					,f_c_res
-					,fct_inf
-					,fct_sup
-					,perc_int_sup
-					,perc_int_inf
-					,d_c
-					,hipertensao
-					,diabetes
-					,fumante
-					,bebida_alcoolica
-					,d_c_familiar
-					,obesidade_familiar
-					,hipertensao_familiar
-					,diabetes_familiar
-					,prat_atividade_fisica
-					,modalidade
-					,frequencia_semanal_atividade
-					,duracao
-					,medicamentos
-					,outros
-					,objetivos
-FROM	avaliacaofisica
-WHERE id_cliente_aval_fisica = $P{cliente.id}
-GROUP BY DATA_HORA]]>
+		<![CDATA[SELECT torax,
+	torax2,
+	data_hora,
+	cintura,
+	abdominal,
+	quadril,
+	bisseps_direito,
+	bisseps_esquerdo,
+	coxa_esquerda,
+	coxa_direita,
+	perc_gordura,
+	perna_esquerda,
+	perna_direita,
+	perc_livre_gordura,
+	perc_ideal_gordura,
+	perc_gord_sobra,
+	imc,
+	rc_q,
+	peso_gordura,
+	peso_magro,
+	peso_excedente,
+	pressao_arterial,
+	f_c_repouso,
+	f_c_max,
+	f_c_res,
+	fct_inf,
+	fct_sup,
+	perc_int_sup,
+	perc_int_inf,
+	d_c,
+	hipertensao,
+	diabetes,
+	fumante,
+	bebida_alcoolica,
+	d_c_familiar,
+	obesidade_familiar,
+	hipertensao_familiar,
+	diabetes_familiar,
+	prat_atividade_fisica,
+	modalidade,
+	frequencia_semanal_atividade,
+	duracao,
+	medicamentos,
+	outros,
+	objetivos
+FROM avaliacaofisica
+WHERE 
+	 avaliacaofisica.id_cliente_aval_fisica = $P{cliente.id}]]>
 	</queryString>
 	<field name="torax" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.label" value="torax"/>
@@ -245,11 +246,11 @@ GROUP BY DATA_HORA]]>
 	<title>
 		<band height="119" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="0" width="280" height="80" uuid="c411bd04-7d8e-4e13-8b22-83b91fd9f26b"/>
+				<reportElement x="0" y="0" width="280" height="80" uuid="d4857b81-37b5-4bfc-ada9-9fa061624af9"/>
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="180" y="88" width="140" height="30" uuid="62b0ca6c-db2a-460e-bb93-735f174c7ff4"/>
+				<reportElement x="180" y="88" width="140" height="30" uuid="1fd1a1b4-6e31-451d-aaf0-770478d9bf8d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="16"/>
 				</textElement>
@@ -261,7 +262,7 @@ GROUP BY DATA_HORA]]>
 		<band height="635">
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="2" y="290" width="550" height="139" uuid="b9d38aad-9749-4ffb-99cd-26c0ba796d71"/>
+					<reportElement x="2" y="290" width="550" height="139" uuid="f422ffae-3edc-4267-be3a-19c8bb1947a4"/>
 					<chartTitle>
 						<font size="12"/>
 						<titleExpression><![CDATA["Medidas Abdominal"]]></titleExpression>
@@ -288,70 +289,70 @@ GROUP BY DATA_HORA]]>
 				</linePlot>
 			</lineChart>
 			<textField isBlankWhenNull="true">
-				<reportElement x="64" y="-1" width="26" height="16" uuid="3213cf24-e63b-4c51-854c-baa877a15513"/>
+				<reportElement x="64" y="-1" width="26" height="16" uuid="787c6df4-79f9-4025-9d58-e956212e0c67"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{cliente.id}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="30" y="0" width="34" height="14" uuid="165f45ed-8e8b-4fdd-b2fb-4b3bdbd694f3"/>
+				<reportElement x="30" y="0" width="34" height="14" uuid="3ff411c1-c16a-4117-8ab5-837711a0c246"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Aluno:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="30" y="20" width="34" height="13" uuid="83083ad4-ee2e-4b2a-8258-6d2590620572"/>
+				<reportElement x="30" y="20" width="34" height="13" uuid="9071884f-fb33-42a9-8c54-3af0a3eb02d9"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Idade:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="64" y="19" width="16" height="14" uuid="f68adb75-2948-4c7e-9a8b-e7436fe3d269"/>
+				<reportElement x="64" y="19" width="16" height="14" uuid="a7f02a0a-60d9-43f3-aa3a-26f67c40948b"/>
 				<textElement textAlignment="Right">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{idade}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="80" y="19" width="33" height="14" uuid="9517a1c3-9122-4c49-b46c-817f459494ef"/>
+				<reportElement x="80" y="19" width="33" height="14" uuid="0aed0de1-7405-4955-83de-38874715b30b"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[anos]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="20" y="62" width="100" height="22" uuid="3e5ceceb-10da-43d7-84a3-265952f3f24d"/>
+				<reportElement x="20" y="62" width="100" height="22" uuid="c3d6dbab-572f-4e8b-b584-971e5ce9d12d"/>
 				<textElement>
 					<font size="12" isBold="false" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Perímetros]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="300" y="90" width="43" height="17" uuid="8bc96901-f904-4a55-bcd1-17f0a6875019"/>
+				<reportElement x="300" y="90" width="43" height="17" uuid="dc042d4a-abcc-4a55-b644-533b002e177f"/>
 				<textElement textAlignment="Center">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Altura:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="90" width="32" height="16" uuid="007f1b67-e8fb-4d54-8ea4-ca1e10f445c3"/>
+				<reportElement x="100" y="90" width="32" height="16" uuid="be0fe824-fe8d-40df-98ed-a3ebdeab1ae9"/>
 				<textElement textAlignment="Center">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Peso:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="140" y="91" width="100" height="15" uuid="012af60d-3e3a-4985-b473-8b6b2209884b"/>
+				<reportElement x="140" y="91" width="100" height="15" uuid="d58151ff-6c60-49b2-b63a-2d1bc29f3db1"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{peso}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="350" y="90" width="100" height="17" uuid="ea0476b2-0aa7-4fec-ba66-2e157b39834d"/>
+				<reportElement x="350" y="90" width="100" height="17" uuid="572ec305-9bda-42a7-b7e7-14f1047d142c"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
@@ -359,7 +360,7 @@ GROUP BY DATA_HORA]]>
 			</textField>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="2" y="130" width="550" height="139" uuid="8b8104ec-ad29-469c-801a-4dd0a06ba9fc"/>
+					<reportElement x="2" y="130" width="550" height="139" uuid="11f57d11-f95d-46ff-b0fa-c794fd6a0910"/>
 					<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0"/>
 					<chartTitle>
 						<font size="12" isBold="false"/>
@@ -393,14 +394,14 @@ GROUP BY DATA_HORA]]>
 				</linePlot>
 			</lineChart>
 			<textField pattern="dd MMMMM yyyy">
-				<reportElement x="410" y="18" width="120" height="16" uuid="41977c04-1241-4561-8555-5b67f435cdc4"/>
+				<reportElement x="410" y="18" width="120" height="16" uuid="f1bef759-8dd9-44e1-bc1d-7a03d416d113"/>
 				<textElement textAlignment="Left">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="90" y="-1" width="250" height="16" uuid="4f56d04b-6eb4-4eea-bf96-6af44ba4cc8a"/>
+				<reportElement x="90" y="-1" width="250" height="16" uuid="024a7827-b194-457c-9365-b7d738a7a8b2"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
@@ -408,7 +409,7 @@ GROUP BY DATA_HORA]]>
 			</textField>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="0" y="466" width="550" height="139" uuid="5467925a-74d0-42e9-bccd-baab58d10c22"/>
+					<reportElement x="0" y="466" width="550" height="139" uuid="0c52530c-5e78-48fb-8b8a-f95491ebc948"/>
 					<chartTitle>
 						<font size="12"/>
 						<titleExpression><![CDATA["Medidas Cintura"]]></titleExpression>
@@ -438,11 +439,11 @@ GROUP BY DATA_HORA]]>
 		<band height="802">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<break>
-				<reportElement x="0" y="0" width="551" height="1" uuid="f580fa07-fa8d-46fd-ae06-7ca7202e70fc"/>
+				<reportElement x="0" y="0" width="551" height="1" uuid="ce891386-c236-4e7e-af67-28a9f5c04d88"/>
 			</break>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="2" y="10" width="550" height="139" uuid="75d76ffa-8668-47f0-8197-c4347e5b6c0f">
+					<reportElement x="2" y="10" width="550" height="139" uuid="2ff1e29d-01e7-4fc1-9f6b-7b08045fda42">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -473,7 +474,7 @@ GROUP BY DATA_HORA]]>
 			</lineChart>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="2" y="170" width="550" height="139" uuid="53ad8901-aac5-44a8-a127-af41cac9a732">
+					<reportElement x="2" y="170" width="550" height="139" uuid="238cdcd8-b295-4a0b-8cfb-eac0deadfd06">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -508,7 +509,7 @@ GROUP BY DATA_HORA]]>
 			</lineChart>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="0" y="330" width="550" height="139" uuid="78dd9a72-ac71-44a4-80f8-ca99c53c715c">
+					<reportElement x="0" y="330" width="550" height="139" uuid="f6e3aea1-0a20-403d-b8fa-816205126d02">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -543,7 +544,7 @@ GROUP BY DATA_HORA]]>
 			</lineChart>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="1" y="480" width="550" height="139" uuid="4f7334c1-2c6e-4fed-8510-9e13886a09fc">
+					<reportElement x="1" y="480" width="550" height="139" uuid="c37f908d-4d5a-441f-910f-9b2293773bfc">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -578,7 +579,7 @@ GROUP BY DATA_HORA]]>
 			</lineChart>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="0" y="630" width="550" height="139" uuid="61dd2bab-b79b-4af3-8ed3-7cfe9d7ad52b">
+					<reportElement x="0" y="630" width="550" height="139" uuid="c4b5f5d1-1c50-4ee8-97ad-0d1956e5da59">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -607,7 +608,7 @@ GROUP BY DATA_HORA]]>
 				</linePlot>
 			</lineChart>
 			<break>
-				<reportElement x="0" y="800" width="550" height="1" uuid="0084924f-fb5e-4385-bb8a-1f6f42e8fbcf">
+				<reportElement x="0" y="800" width="550" height="1" uuid="5c560cc2-fae0-414c-8d3e-4c22ff38376a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</break>
@@ -616,7 +617,7 @@ GROUP BY DATA_HORA]]>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="2" y="13" width="550" height="139" uuid="8892a508-c8c6-40ad-a9a4-d46c762db672">
+					<reportElement x="2" y="13" width="550" height="139" uuid="b15b4959-ff6b-4aac-be07-8c4546d42baf">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -646,7 +647,7 @@ GROUP BY DATA_HORA]]>
 			</lineChart>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="2" y="173" width="550" height="139" uuid="38737e46-09b5-448c-9036-789ba042bc0c">
+					<reportElement x="2" y="173" width="550" height="139" uuid="6af3d6ba-51e8-4876-a394-25f2f39bc478">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -676,7 +677,7 @@ GROUP BY DATA_HORA]]>
 			</lineChart>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="1" y="331" width="550" height="139" uuid="dc306fb4-f8b1-42c9-860a-8b25b0e6a02e">
+					<reportElement x="1" y="331" width="550" height="139" uuid="5cfbfad5-2bb1-486b-9552-4198f12cfefa">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -706,7 +707,7 @@ GROUP BY DATA_HORA]]>
 			</lineChart>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="2" y="480" width="550" height="139" uuid="0a91328d-0eeb-48ab-9b8e-c84ff5b0afd5">
+					<reportElement x="2" y="480" width="550" height="139" uuid="2b1982a7-d284-4c46-86e6-7bbfc4686a8e">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -736,7 +737,7 @@ GROUP BY DATA_HORA]]>
 			</lineChart>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="-1" y="630" width="550" height="139" uuid="4e4cc833-ad49-46c4-b60e-e2ce93bd4634">
+					<reportElement x="-1" y="630" width="550" height="139" uuid="17a8493b-8cea-4b82-92a6-425859021095">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -765,14 +766,14 @@ GROUP BY DATA_HORA]]>
 				</linePlot>
 			</lineChart>
 			<break>
-				<reportElement x="0" y="800" width="558" height="1" uuid="2fc95722-3c77-463a-abe2-b045a0b4c412"/>
+				<reportElement x="0" y="800" width="558" height="1" uuid="1d842a34-7079-462b-ad7f-0bb1b4b72438"/>
 			</break>
 		</band>
 		<band height="802">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="0" y="12" width="550" height="139" uuid="315a2245-e45d-4b2c-b90f-60a40f034c64">
+					<reportElement x="0" y="12" width="550" height="139" uuid="ce30790a-5a96-4445-9fdd-efde1242167e">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -802,7 +803,7 @@ GROUP BY DATA_HORA]]>
 			</lineChart>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="1" y="171" width="550" height="139" uuid="89f73d32-3a90-4f07-ac55-07fab998572a">
+					<reportElement x="1" y="171" width="550" height="139" uuid="bf4dd5e3-7962-48d0-a6ec-d59c5cb67d73">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -832,7 +833,7 @@ GROUP BY DATA_HORA]]>
 			</lineChart>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="1" y="320" width="550" height="139" uuid="f3f613c1-693f-4780-b755-6ef666d70f30">
+					<reportElement x="1" y="320" width="550" height="139" uuid="948ace13-7016-4f5e-93eb-fe0ff98413f0">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -862,7 +863,7 @@ GROUP BY DATA_HORA]]>
 			</lineChart>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="1" y="470" width="550" height="139" uuid="13ba807b-db5a-49db-b8ac-2b1ca9bafbee">
+					<reportElement x="1" y="470" width="550" height="139" uuid="7593666a-61cb-4814-ae21-3d182f02c3a8">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -892,7 +893,7 @@ GROUP BY DATA_HORA]]>
 			</lineChart>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="0" y="620" width="550" height="139" uuid="af1d287b-37fe-4d4c-a796-0002f7f34f3d">
+					<reportElement x="0" y="620" width="550" height="139" uuid="456cfe8a-60ba-45d7-8adb-2b92ac1149f1">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -921,14 +922,14 @@ GROUP BY DATA_HORA]]>
 				</linePlot>
 			</lineChart>
 			<break>
-				<reportElement x="0" y="800" width="551" height="1" uuid="725d4286-89e7-45c5-afa0-637cc7a0186d"/>
+				<reportElement x="0" y="800" width="551" height="1" uuid="041fe612-d2a3-4511-aafd-d77315624de8"/>
 			</break>
 		</band>
 		<band height="802">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="0" y="8" width="550" height="139" uuid="4863208e-6a64-4df2-ab91-b93a05947912">
+					<reportElement x="0" y="8" width="550" height="139" uuid="9bc02a1b-4c06-4652-bc12-cdd14180f470">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -958,7 +959,7 @@ GROUP BY DATA_HORA]]>
 			</lineChart>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="1" y="163" width="550" height="139" uuid="1a8a44ca-533d-4fca-8ef6-b3dd020f9d32">
+					<reportElement x="1" y="163" width="550" height="139" uuid="0556439f-eb4d-4c2e-8f85-404af1e77f75">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -988,7 +989,7 @@ GROUP BY DATA_HORA]]>
 			</lineChart>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="1" y="319" width="550" height="139" uuid="593ba5f3-d4ea-4ed3-bbf7-b2c8e5196cc0">
+					<reportElement x="1" y="319" width="550" height="139" uuid="198dfc6f-8414-4c25-8b17-7c4a8007c261">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -1018,7 +1019,7 @@ GROUP BY DATA_HORA]]>
 			</lineChart>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="1" y="475" width="550" height="139" uuid="e4770624-2335-4ff7-81da-e15e80b38be2">
+					<reportElement x="1" y="475" width="550" height="139" uuid="a42065b1-fffe-4499-9a8d-a250faea65e7">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -1048,7 +1049,7 @@ GROUP BY DATA_HORA]]>
 			</lineChart>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="-1" y="640" width="550" height="139" uuid="bad01957-eb5c-465d-8a7e-3abbf79a68a9">
+					<reportElement x="-1" y="640" width="550" height="139" uuid="9efd23ec-16b3-4c70-8b15-002832b4c86e">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>

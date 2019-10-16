@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -194,5 +195,44 @@ public class ContaPagarDAO {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    public ArrayList<ContaPagar> buscarContasAPagarVencidasEAVencer() {
+        LocalDate dataInicial = LocalDate.now().plusDays(15);
+        LocalDate dataFinal = LocalDate.now().minusDays(30);
+         String sql = "SELECT * "
+                + "FROM conta_pagar WHERE date(data_vencimento) BETWEEN date('" + dataFinal + "') AND date('" 
+                 + dataInicial + "') AND data_baixa IS NULL ORDER BY data_vencimento DESC";
+         ResultSet resultSet;
+        ArrayList<ContaPagar> contasPagar = new ArrayList();
+
+        try {
+            connection = Conexao.conexao();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery(sql);
+            while (resultSet.next()) {
+                ContaPagar contaPagar = new ContaPagar();
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                contaPagar.setIdContaPagar(resultSet.getInt("idConta_Pagar"));
+                contaPagar.setDescricao(resultSet.getString("descricao"));
+                Double valor = resultSet.getDouble("valor");
+                contaPagar.setValor(String.valueOf(valor));
+                 Usuario usuario = usuarioDAO.getUsuarioPorID(resultSet.getInt("id_usuario"));
+                contaPagar.setUsuario(usuario);
+                contaPagar.setDataVencimento(resultSet.getDate("data_vencimento").toLocalDate());
+
+                if (resultSet.getDate("data_baixa") != null) {
+                    contaPagar.setDataPagamento(resultSet.getDate("data_baixa").toLocalDate());
+                }
+                contaPagar.setParcela(resultSet.getInt("parcela"));
+                contaPagar.setFornecedor(resultSet.getString("fornecedor"));
+                contaPagar.setTipoConta(resultSet.getBoolean("tipo_conta"));
+                contasPagar.add(contaPagar);
+            }
+            return contasPagar;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }  
     }
 }

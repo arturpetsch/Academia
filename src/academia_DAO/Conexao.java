@@ -20,12 +20,15 @@ public class Conexao {
     public static Connection conexao() throws ClassNotFoundException, SQLException{
         try{
             Class.forName("com.mysql.jdbc.Driver");
-        
-            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/mydb","root","academia54321");
+            if(connection == null){
+                connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/mydb","root","academia54321");
+            
             System.out.println("Conectado");
+            }
             return connection;
         }catch(Exception e){
-             Alert alerta = new Alert(Alert.AlertType.ERROR);
+            e.printStackTrace();
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Erro no Recibo");
             alerta.setHeaderText("Erro ao acessar o banco de dados");
             alerta.showAndWait();

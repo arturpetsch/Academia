@@ -1,0 +1,26 @@
+Signature-Version: 1.0
+SHA-256-Digest-Manifest-Main-Attributes: 4KfCzgaXjl2EDR9dm2nklkBDRDCvQ
+ eHokA+04+hH+/0=
+SHA-256-Digest-Manifest: mYiWNUlCPwnn3pX2oxbtCEwZ6FpMWbNq/OSRBDk7nrs=
+Created-By: 1.8.0_101 (Oracle Corporation)
+
+Name: plugin.xml
+SHA-256-Digest: ODq6WwzedGgxnSpIeRERc0LHQinBGk9aigdV4rIzqYg=
+
+Name: META-INF/maven/com.jaspersoft.studio.community-edition/net.sf.ja
+ sperreports.doc/pom.xml
+SHA-256-Digest: ihLYnhL+2rcvunuy8V0IyynDJ/TNURkBbmV23c8QqIE=
+
+Name: toc.xml
+SHA-256-Digest: ExhkaIholEVMMxAg0+G4lBJHge7Qr+jIiOJUZWzWAvU=
+
+Name: doc.zip
+SHA-256-Digest: ct03lmsxrQ059RzNdnNf5MVBtE7vulREZQi75jxsxR0=
+
+Name: pom.xml
+SHA-256-Digest: iI5gLDpxXy4OqUxFMfDTl0YLf7YqpSUyOv2czIP88Ns=
+
+Name: META-INF/maven/com.jaspersoft.studio.community-edition/net.sf.ja
+ sperreports.doc/pom.properties
+SHA-256-Digest: N9r9hooybKqVlKIMi+t6NaqQwJW5Wm15ILkfIeUH2KE=
+

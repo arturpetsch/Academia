@@ -26,9 +26,10 @@ public class AvaliacaoFisicaDAO {
     
     public ArrayList<AvaliacaoFisica> consultarDadosClienteEmAvaliacao(Cliente cliente){
          
-        String busca = "SELECT idade, peso, altura, idAvaliacaoFisica FROM avaliacaofisica WHERE id_cliente_aval_fisica = " 
-                + cliente.getId() + " ORDER BY id_cliente_aval_fisica DESC LIMIT 1";
+        String busca = "SELECT idade, peso, altura, idAvaliacaoFisica, data_hora FROM avaliacaofisica WHERE id_cliente_aval_fisica = " 
+                + cliente.getId() + " ORDER BY idAvaliacaoFisica DESC LIMIT 1";
         
+        System.err.println(busca);
         ResultSet resultSet;
         AvaliacaoFisica avaliacaoFisica = new AvaliacaoFisica();
         ArrayList<AvaliacaoFisica> avaliacao = new ArrayList<>();
@@ -45,6 +46,8 @@ public class AvaliacaoFisicaDAO {
                 avaliacaoFisica.setIdade(resultSet.getInt("idade"));
                 avaliacaoFisica.setCliente(cliente);
                 avaliacaoFisica.setIdAvaliacaoFisica(resultSet.getInt("idAvaliacaoFisica"));
+                avaliacaoFisica.setData_hora(resultSet.getDate("data_hora").toLocalDate());
+                
                 avaliacao.add(avaliacaoFisica);
             }
             return avaliacao;
@@ -340,4 +343,37 @@ public class AvaliacaoFisicaDAO {
         }
         return torax2;
     }
+    
+    public ArrayList<AvaliacaoFisica> consultarProximasAvaliacoes(){
+        LocalDate dataHoje = LocalDate.now().minusMonths(3);
+        String busca = "SELECT id_cliente_aval_fisica, MAX(data_hora) FROM avaliacaofisica WHERE date(data_hora) > date('" 
+                + dataHoje 
+                + "') GROUP BY id_cliente_aval_fisica HAVING COUNT(id_cliente_aval_fisica) > 0";
+        System.err.println(busca);
+        ResultSet resultSet;
+        ArrayList<AvaliacaoFisica> avaliacoes = new ArrayList<AvaliacaoFisica>();
+        
+        try {
+            
+            connection = Conexao.conexao();
+            PreparedStatement preparedStatement = connection.prepareStatement(busca);
+            resultSet = preparedStatement.executeQuery(busca);
+            
+            while(resultSet.next()){
+                AvaliacaoFisica avaliacaoFisica = new AvaliacaoFisica();
+                ClienteDAO clienteDAO = new ClienteDAO();
+                avaliacaoFisica.setCliente(clienteDAO.buscarClientePeloID(resultSet.getInt("id_cliente_aval_fisica")));
+                avaliacaoFisica.setData_hora(resultSet.getDate("MAX(data_hora)").toLocalDate());
+                
+                
+                avaliacoes.add(avaliacaoFisica);
+            
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return avaliacoes;
+    }
 }
+

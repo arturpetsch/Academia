@@ -5,13 +5,20 @@
  */
 package academia.Relatorios;
 
+import academia.BarraDeProgressoController;
 import classes_academia.ContaReceber;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javax.swing.ImageIcon;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -45,7 +52,23 @@ public class ReciboPagamento {
     }
 
     public void gerarRecibo(Collection<ContaReceber> mensalidade) throws JRException {
-        try{
+         Stage stage1 = new Stage();
+        
+         try{
+             
+              FXMLLoader loader = new FXMLLoader(getClass().getResource("/academia/barraDeProgresso.fxml"));
+        Parent root1 = (Parent) loader.load();
+        BarraDeProgressoController barraDeProgressoController = loader.getController();
+        Scene alert1 = new Scene(root1);
+        Image icone1 = new Image(getClass().getResourceAsStream("/academia/icon/refresh.png"));
+        stage1.getIcons().add(icone1);
+
+        stage1.setScene(alert1);
+        stage1.setResizable(false);
+        stage1.centerOnScreen();
+        stage1.initModality(Modality.APPLICATION_MODAL);
+
+        stage1.show();
             Map<String, Object> params = new HashMap();
         
         
@@ -72,7 +95,9 @@ public class ReciboPagamento {
            file.deleteOnExit();*/
         //JasperViewer.viewReport(print);
         JasperViewer.viewReport(print, false);
+        stage1.close();
         }catch(Exception e){
+            stage1.close();
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Erro no Recibo");
             alerta.setHeaderText("Erro ao gerar o Recibo!\n" + this.path + "\\src\\relatorios\\recibo.jrxml");

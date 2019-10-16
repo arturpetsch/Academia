@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,6 +37,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import negocio_academia.Negocio_Cliente;
 import negocio_academia.Negocio_Financeiro;
@@ -62,13 +64,13 @@ public class FXMLDocumentController implements Initializable {
         // TODO
         gerarMensalidade();
         idNomeUsuario.textProperty().addListener((ov, oldValue, newValue) -> {
-        idNomeUsuario.setText(newValue.toUpperCase());
+            idNomeUsuario.setText(newValue.toUpperCase());
         });
-        
+
     }
 
-    private void gerarMensalidade(){
-     int hoje = LocalDate.now().getDayOfMonth();
+    private void gerarMensalidade() {
+        int hoje = LocalDate.now().getDayOfMonth();
 
         Negocio_Cliente negocioCliente = new Negocio_Cliente();
 
@@ -85,7 +87,7 @@ public class FXMLDocumentController implements Initializable {
             dataVenc.plusMonths(1);*/
             Month mesVenc = LocalDate.now().getMonth().plus(1);
             int anoVenc;
-            
+
             if (mesVenc == Month.JANUARY) {
                 anoVenc = LocalDate.now().getYear() + 1;
             } else {
@@ -93,20 +95,20 @@ public class FXMLDocumentController implements Initializable {
             }
 
             LocalDate dataVenc;
-            if(mensalidadesAtiva.getDiaVencimento() > 28 && mesVenc.equals(Month.FEBRUARY)){
+            if (mensalidadesAtiva.getDiaVencimento() > 28 && mesVenc.equals(Month.FEBRUARY)) {
                 dataVenc = LocalDate.of(anoVenc, mesVenc, 28);
-            
-            }else{
+
+            } else {
                 dataVenc = LocalDate.of(anoVenc, mesVenc, mensalidadesAtiva.getDiaVencimento());
             }
-            
+
             contaReceber.setDataVencimento(dataVenc);
             contaReceber.setDescricao(new SimpleStringProperty("Mensalidade"));
             contaReceber.setTipoConta(new SimpleBooleanProperty(true));
             contaReceber.setMensalidade(mensalidadesAtiva);
 
             Negocio_Financeiro negocio_Financeiro = new Negocio_Financeiro();
-                        
+
             if (!negocio_Financeiro.validarMensalidadeCliente(dataVenc, contaReceber.getCliente())) {
                 if (negocio_Financeiro.inserirNovaConta(contaReceber)) {
                     System.err.println("Inserido");
@@ -118,14 +120,28 @@ public class FXMLDocumentController implements Initializable {
             }
         }
     }
-        
+
     @FXML
-    protected void botaoEntrarSistema(ActionEvent evento) throws IOException {
+    protected void botaoEntrarSistema(ActionEvent evento) throws IOException, Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("barraDeProgresso.fxml"));
+        Parent root = (Parent) loader.load();
+        BarraDeProgressoController barraDeProgressoController = loader.getController();
+        Scene alert = new Scene(root);
+        Stage stage1 = new Stage();
+
+        stage1.setScene(alert);
+        stage1.setResizable(false);
+        stage1.centerOnScreen();
+        stage1.initModality(Modality.APPLICATION_MODAL);
+
+        stage1.show();
+
         if (validarCampos()) {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             if (usuarioDAO.verificarLogin(idNomeUsuario.getText(), idSenhaUsuario.getText())) {
                 Parent telaPrincipal = FXMLLoader.load(getClass().getResource("FXMLtelaPrincipal.fxml"));
                 inserirDadosUsuario();
+                stage1.close();
                 Scene scene = new Scene(telaPrincipal);
                 Stage stage = (Stage) ((Node) evento.getSource()).getScene().getWindow();
                 stage.setTitle("Gerenciador de Academia");
@@ -134,6 +150,7 @@ public class FXMLDocumentController implements Initializable {
                 stage.setResizable(false);
                 stage.show();
             } else {
+                stage1.close();
                 Alert alerta = new Alert(Alert.AlertType.WARNING);
                 alerta.setTitle("Erro ao entrar no sistema");
                 alerta.setHeaderText("Usuário e Senha Informados Inválidos.\nPor Favor, verifique!");
@@ -170,55 +187,78 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    
     @FXML
     public void AcaoBotaEnter() {
-       
+
         btnEntrarSistema.setOnKeyPressed((KeyEvent evento) -> {
             if (evento.getCode() == KeyCode.ENTER) {
-                 if (validarCampos()) {
-            UsuarioDAO usuarioDAO = new UsuarioDAO();
-            if (usuarioDAO.verificarLogin(idNomeUsuario.getText(), idSenhaUsuario.getText())) {
-                Parent telaPrincipal;
+                
                 try {
-                    telaPrincipal = FXMLLoader.load(getClass().getResource("FXMLtelaPrincipal.fxml"));
-               
-                inserirDadosUsuario();
-                Scene scene = new Scene(telaPrincipal);
-                Stage stage = (Stage) ((Node) evento.getSource()).getScene().getWindow();
-                stage.setTitle("Gerenciador de Academia");
-                stage.setScene(scene);
-                stage.centerOnScreen();
-                stage.setResizable(false);
-                stage.show();
-                 } catch (IOException ex) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("barraDeProgresso.fxml"));
+                    
+                    Parent root = (Parent) loader.load();
+                    BarraDeProgressoController barraDeProgressoController = loader.getController();
+                    Scene alert = new Scene(root);
+                    Stage stage1 = new Stage();
+                    Image icone = new Image(getClass().getResourceAsStream("/academia/icon/refresh.png"));
+                    stage1.getIcons().add(icone);
+        
+                    stage1.setScene(alert);
+                    stage1.setResizable(false);
+                    stage1.centerOnScreen();
+                    stage1.initModality(Modality.APPLICATION_MODAL);
+                    
+                    stage1.show();
+                    
+                    if (validarCampos()) {
+                        UsuarioDAO usuarioDAO = new UsuarioDAO();
+                        if (usuarioDAO.verificarLogin(idNomeUsuario.getText(), idSenhaUsuario.getText())) {
+                            Parent telaPrincipal;
+                            try {
+                                telaPrincipal = FXMLLoader.load(getClass().getResource("FXMLtelaPrincipal.fxml"));
+                                
+                                inserirDadosUsuario();
+                                stage1.close();
+                                Scene scene = new Scene(telaPrincipal);
+                                Stage stage = (Stage) ((Node) evento.getSource()).getScene().getWindow();
+                                stage.setTitle("Gerenciador de Academia");
+                                stage.setScene(scene);
+                                stage.centerOnScreen();
+                                stage.setResizable(false);
+                                stage.show();
+                            } catch (IOException ex) {
+                                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            stage1.close();
+                            Alert alerta = new Alert(Alert.AlertType.WARNING);
+                            alerta.setTitle("Erro ao entrar no sistema");
+                            alerta.setHeaderText("Usuário e Senha Informados Inválidos.\nPor Favor, verifique!");
+                            alerta.showAndWait();
+                        }
+                    }
+                } catch (IOException ex) {
                     Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } else {
-                Alert alerta = new Alert(Alert.AlertType.WARNING);
-                alerta.setTitle("Erro ao entrar no sistema");
-                alerta.setHeaderText("Usuário e Senha Informados Inválidos.\nPor Favor, verifique!");
-                alerta.showAndWait();
-            }
-        }
             }
         });
     }
 
     @FXML
-    private void recuperarSenha(ActionEvent event) throws IOException{
+    private void recuperarSenha(ActionEvent event) throws IOException {
         Parent telaPrincipal = FXMLLoader.load(getClass().getResource("Usuario/FXMLrecuperarSenha.fxml"));
-               
-                Scene scene = new Scene(telaPrincipal);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Image icone = new Image(getClass().getResourceAsStream("/academia/icon/gym.png"));
-                stage.getIcons().add(icone);
-        
-                stage.setTitle("Gerenciador de Academia");
-                stage.setScene(scene);
-                stage.centerOnScreen();
-                stage.setResizable(false);
-                stage.show();
+
+        Scene scene = new Scene(telaPrincipal);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Image icone = new Image(getClass().getResourceAsStream("/academia/icon/gym.png"));
+        stage.getIcons().add(icone);
+
+        stage.setTitle("Gerenciador de Academia");
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.setResizable(false);
+        stage.show();
     }
-    
-    
+
 }

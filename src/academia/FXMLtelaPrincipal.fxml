@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.effect.DropShadow?>
@@ -38,6 +39,11 @@
                      </font>
                   </Button>
                   <Button fx:id="botaoAvaliacaoFisica" layoutX="330.0" layoutY="1.0" mnemonicParsing="false" onAction="#mostrarOpcaoAvaliacao" onMouseEntered="#alterarCorDoBotaoAvaliacao" prefHeight="60.0" prefWidth="88.0" style="-fx-background-color: #4169E1;" text="Avaliação Física" textAlignment="CENTER" textFill="#fffefe" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="botaoProduto" layoutX="427.0" layoutY="-3.0" mnemonicParsing="false" onAction="#mostrarOpcaoProdutos" onMouseEntered="#alterarCorDoBotaoProduto" prefHeight="60.0" prefWidth="88.0" style="-fx-background-color: #4169E1;" text="Produtos" textAlignment="CENTER" textFill="#fffefe" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -94,6 +100,48 @@
                               <Label fx:id="labelInativos" layoutX="171.0" layoutY="446.0" prefHeight="19.0" prefWidth="44.0">
                                  <font>
                                     <Font name="Source Sans Pro Semibold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <AnchorPane layoutX="352.0" layoutY="27.0" prefHeight="477.0" prefWidth="241.0">
+                                 <children>
+                                    <Label layoutX="9.0" layoutY="14.0" text="Mensalidades - A vencer / vencidas" underline="true">
+                                       <font>
+                                          <Font name="MS Outlook" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <ListView fx:id="listaMensalidades" editable="true" layoutX="14.0" layoutY="39.0" prefHeight="426.0" prefWidth="207.0">
+                                       <Label />
+                                        <effect>
+                                          <DropShadow />
+                                       </effect>
+                                    </ListView>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="615.0" layoutY="65.0" prefHeight="426.0" prefWidth="207.0">
+                                 <children>
+                                    <ListView fx:id="listaContas" prefHeight="426.0" prefWidth="207.0">
+                                       <effect>
+                                          <DropShadow />
+                                       </effect>
+                                    </ListView>
+                                 </children></AnchorPane>
+                              <Label layoutX="602.0" layoutY="40.0" text="Contas a Pagar  - A vencer / vencidas" underline="true">
+                                 <font>
+                                    <Font name="MS Outlook" size="14.0" />
+                                 </font>
+                              </Label>
+                              <AnchorPane layoutX="860.0" layoutY="65.0" prefHeight="200.0" prefWidth="301.0">
+                                 <children>
+                                    <ListView fx:id="listaAvaliacao" prefHeight="200.0" prefWidth="301.0">
+                                       <effect>
+                                          <DropShadow />
+                                       </effect>
+                                    </ListView>
+                                 </children>
+                              </AnchorPane>
+                              <Label layoutX="877.0" layoutY="40.0" prefHeight="17.0" prefWidth="288.0" text="Próximas Avaliações Físicas" underline="true">
+                                 <font>
+                                    <Font name="MS Outlook" size="14.0" />
                                  </font>
                               </Label>
                            </children></AnchorPane>

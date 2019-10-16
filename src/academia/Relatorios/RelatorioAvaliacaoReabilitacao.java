@@ -5,6 +5,7 @@
  */
 package academia.Relatorios;
 
+import academia.BarraDeProgressoController;
 import academia_DAO.AvaliacaoFisicaDAO;
 import classes_academia.AvaliacaoFisica;
 import classes_academia.AvaliacaoReabilitacao;
@@ -15,8 +16,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import net.sf.jasperreports.engine.JRException;
@@ -50,7 +56,21 @@ public class RelatorioAvaliacaoReabilitacao {
     }
 
     public void gerarRelatorioAvaliacaoReabilitacao(Collection<AvaliacaoReabilitacao> avaliacaoReabilitacao, List<File> imagens) throws JRException {
+        Stage stage1 = new Stage();
         try{
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/academia/barraDeProgresso.fxml"));
+        Parent root1 = (Parent) loader.load();
+        BarraDeProgressoController barraDeProgressoController = loader.getController();
+        Scene alert1 = new Scene(root1);
+        Image icone1 = new Image(getClass().getResourceAsStream("/academia/icon/refresh.png"));
+        stage1.getIcons().add(icone1);
+
+        stage1.setScene(alert1);
+        stage1.setResizable(false);
+        stage1.centerOnScreen();
+        stage1.initModality(Modality.APPLICATION_MODAL);
+
+        stage1.show();
             Map<String, Object> params = new HashMap();
         
         
@@ -116,7 +136,9 @@ public class RelatorioAvaliacaoReabilitacao {
        //JasperPrint print = JasperFillManager.fillReport(report, params, jrRs);
         System.err.println("compilou ");
         JasperViewer.viewReport(print, false);
+        stage1.close();
         }catch(Exception e){
+            stage1.close();
             e.printStackTrace();
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Erro no PDF");

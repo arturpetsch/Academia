@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="557.0" prefWidth="469.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="academia.Vendas.OpcoesVendaController">
+   <children>
+      <Label layoutX="30.0" layoutY="30.0" text="Opções Vendas" textFill="#380bee">
+         <font>
+            <Font name="Source Sans Pro Semibold" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="novaVenda" layoutX="163.0" layoutY="91.0" mnemonicParsing="false" onAction="#novaVenda" prefHeight="55.0" prefWidth="144.0" text="Nova Venda" />
+      <Button fx:id="consultarVenda" layoutX="163.0" layoutY="163.0" mnemonicParsing="false" onAction="#consultarVenda" prefHeight="55.0" prefWidth="144.0" text="Consultar Venda" />
+      <TableView fx:id="tabelaVendas" layoutX="88.0" layoutY="305.0" prefHeight="200.0" prefWidth="294.0">
+        <columns>
+          <TableColumn fx:id="cod" prefWidth="72.0" text="Cod Venda" />
+          <TableColumn fx:id="data" prefWidth="106.0" text="Data Venda" />
+            <TableColumn fx:id="valor" prefWidth="114.0" text="Valor" />
+        </columns>
+      </TableView>
+      <TextField fx:id="nomeCliente" layoutX="86.0" layoutY="266.0" prefHeight="25.0" prefWidth="251.0" />
+      <Button fx:id="buscaCliente" layoutX="343.0" layoutY="266.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="37.0" />
+      <Label fx:id="labelTexto" layoutX="86.0" layoutY="242.0" text="Informe o nome do cliente:" />
+   </children>
+</AnchorPane>

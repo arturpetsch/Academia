@@ -76,6 +76,7 @@ public class UsuarioDAO {
                 usuario.setId(resultSet.getInt("idUsuario"));
                 usuario.setNome(resultSet.getString("nome"));
                 usuario.setRespostaSecreta(resultSet.getString("resposta_secreta"));
+                
                 ParametroUsuario parametroUsuario = new ParametroUsuario(usuario);
                 preparedStatement.close();
                 return true;
@@ -87,7 +88,7 @@ public class UsuarioDAO {
     }
 
     public Usuario getUsuarioPorNome(String nome) {
-        String sql = "SELECT nome, tipo, idUsuario FROM usuario WHERE nome = '" + nome + "'";
+        String sql = "SELECT nome, tipo, idUsuario, senha FROM usuario WHERE nome = '" + nome + "'";
 
         ResultSet resultSet;
 
@@ -102,7 +103,7 @@ public class UsuarioDAO {
                 usuario.setNome(resultSet.getString("nome"));
                 usuario.setId(resultSet.getInt("idUsuario"));
                 usuario.setTipoUser(resultSet.getString("tipo"));
-
+                usuario.setSenha(resultSet.getString("senha"));
             }
             return usuario;
         } catch (Exception e) {
@@ -112,28 +113,29 @@ public class UsuarioDAO {
     }
 
     public Usuario getUsuarioPorID(int idUser) {
-        String sql = "SELECT nome, tipo, idUsuario FROM usuario WHERE idUsuario = " + idUser + "";
+        String sql = "SELECT nome, tipo, idUsuario, senha FROM usuario WHERE idUsuario = " + idUser + "";
 
         ResultSet resultSet;
+        Usuario usuario = new Usuario();
 
         try {
             connection = Conexao.conexao();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery(sql);
-            Usuario usuario = new Usuario();
-
+            
             if (resultSet.next()) {
 
                 usuario.setNome(resultSet.getString("nome"));
-                usuario.setId(resultSet.getInt("idUsuario"));
+                usuario.setId(idUser);
                 usuario.setTipoUser(resultSet.getString("tipo"));
-
+                usuario.setSenha(resultSet.getString("senha"));
             }
             return usuario;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
+        
     }
     
     public boolean verificacaoRespostaSecreta(String resposta, Usuario usuario) {

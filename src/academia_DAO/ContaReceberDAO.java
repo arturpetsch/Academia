@@ -305,6 +305,7 @@ public class ContaReceberDAO {
     
     public boolean deletarContaReceber(ContaReceber contaReceber){
         String sql = "DELETE FROM contas_receber WHERE idContas_Receber = " + contaReceber.getId() + " ";
+        
         try {
             connection = Conexao.conexao();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -315,5 +316,40 @@ public class ContaReceberDAO {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    public ArrayList<ContaReceber> buscarMensalidadesVencidasEAVencer() {
+        LocalDate dataInicial = LocalDate.now().plusDays(15);
+        LocalDate dataFinal = LocalDate.now().minusDays(30);
+         String sql = "SELECT idContas_Receber, id_cliente_conta_receber, valor, data_vencimento, tipo_conta, descricao "
+                + "FROM contas_receber WHERE date(data_vencimento) BETWEEN date('" + dataFinal + "') AND date('" + dataInicial + "') AND data_baixa IS NULL ORDER BY data_vencimento DESC";
+        System.err.println(sql);
+         ClienteDAO clienteDAO = new ClienteDAO();
+        ResultSet resultSet;
+        ArrayList<ContaReceber> contasReceber = new ArrayList();
+
+        try {
+            connection = Conexao.conexao();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery(sql);
+            while (resultSet.next()) {
+                ContaReceber contaReceber = new ContaReceber();
+                contaReceber.setId(resultSet.getInt("idContas_Receber"));
+                Cliente cliente = clienteDAO.buscarClientePeloID(resultSet.getInt("id_cliente_conta_receber"));
+                contaReceber.setCliente(cliente);
+                
+                contaReceber.setValor(((resultSet.getDouble("valor"))));
+                contaReceber.setDataVencimento(resultSet.getDate("data_vencimento").toLocalDate()); //aqui esta o erro
+                contaReceber.setTipoConta(new SimpleBooleanProperty((resultSet.getBoolean("tipo_conta"))));
+                contaReceber.setDescricao(new SimpleStringProperty(resultSet.getString("descricao")));
+                contasReceber.add(contaReceber);
+            }
+            
+            return contasReceber;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }   
     }
 }

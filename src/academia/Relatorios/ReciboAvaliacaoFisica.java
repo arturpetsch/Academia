@@ -5,6 +5,7 @@
  */
 package academia.Relatorios;
 
+import academia.BarraDeProgressoController;
 import classes_academia.AvaliacaoFisica;
 import classes_academia.ContaReceber;
 import java.util.ArrayList;
@@ -25,6 +26,12 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 import academia_DAO.AvaliacaoFisicaDAO;
 import java.sql.ResultSet;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 /**
  *
@@ -48,7 +55,23 @@ public class ReciboAvaliacaoFisica {
     }
 
     public void gerarReciboAvaliacaoFisica(Collection<AvaliacaoFisica> avaliacaoFisica) throws JRException {
+        Stage stage1 = new Stage();
+        
         try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/academia/barraDeProgresso.fxml"));
+        Parent root1 = (Parent) loader.load();
+        BarraDeProgressoController barraDeProgressoController = loader.getController();
+        Scene alert1 = new Scene(root1);
+        Image icone1 = new Image(getClass().getResourceAsStream("/academia/icon/refresh.png"));
+        stage1.getIcons().add(icone1);
+
+        stage1.setScene(alert1);
+        stage1.setResizable(false);
+        stage1.centerOnScreen();
+        stage1.initModality(Modality.APPLICATION_MODAL);
+
+        stage1.show();
+
             AvaliacaoFisicaDAO avaliacaoFisicaDAO = new AvaliacaoFisicaDAO();
             Map<String, Object> params = new HashMap();
         
@@ -65,7 +88,6 @@ public class ReciboAvaliacaoFisica {
        params.put("cliente.id", idCliente.toString());
        params.put("cliente.nome", avaliacaoF.get(0).getCliente().getNome()); 
        
-        JasperReport report = JasperCompileManager.compileReport(this.path + "\\src\\relatorios\\avaliacaoFisica.jrxml");
         
         ArrayList<Double> torax = new ArrayList<Double>();
        torax = avaliacaoFisicaDAO.buscarAvaliacoesPorCliente(avaliacaoF.get(0).getCliente().getId());
@@ -75,7 +97,7 @@ public class ReciboAvaliacaoFisica {
        
         ArrayList<AvaliacaoFisica> avaliacoes = avaliacaoFisicaDAO.consultarAvaliacaoPorCliente(avaliacaoF.get(0).getCliente());
        JRBeanArrayDataSource jrRs = new JRBeanArrayDataSource(avaliacoes.toArray());
-       
+     
        String mes =  avaliacaoF.get(0).getData_hora().toString();
         //params.put("torax", torax);
         //params.put("torax2", torax2);
@@ -83,12 +105,17 @@ public class ReciboAvaliacaoFisica {
         params.put("idade", avaliacaoF.get(0).getIdade());
         params.put("peso", avaliacaoF.get(0).getPeso());
         params.put("altura", avaliacaoF.get(0).getAltura());
+        JasperReport report = JasperCompileManager.compileReport(this.path + "\\src\\relatorios\\avaliacaoFisica.jrxml");
+        
         JasperPrint print = JasperFillManager.fillReport(report, params, new JRBeanCollectionDataSource(avaliacaoFisica,false));
        
        //JasperPrint print = JasperFillManager.fillReport(report, params, jrRs);
         System.err.println("compilou ");
+        stage1.close();
         JasperViewer.viewReport(print, false);
+        
         }catch(Exception e){
+            stage1.close();
             e.printStackTrace();
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Erro no PDF");

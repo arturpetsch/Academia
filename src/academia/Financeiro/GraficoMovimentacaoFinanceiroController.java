@@ -125,6 +125,8 @@ public class GraficoMovimentacaoFinanceiroController implements Initializable {
         contasR.getData().add(new XYChart.Data("Outubro", outubro));
         contasR.getData().add(new XYChart.Data("Novembro", novembro));
         contasR.getData().add(new XYChart.Data("Dezembro", dezembro));
+        
+        
         grafico.getData().addAll(contasR);
     }
     
